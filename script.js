@@ -1,4 +1,4 @@
-const PASSWORD = "2109";
+const PASSWORD = "2009";
 
 const intro = document.getElementById("intro");
 const passwordScreen = document.getElementById("passwordScreen");
