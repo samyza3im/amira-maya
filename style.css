@@ -1,706 +1,129 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080706;--cream:#f5ead8;--gold:#d8b46e;--gold-light:#f4d995;
+  --red:#7a2028;--red-dark:#4c1218;--cake:#f2dfbd;--cake2:#d3ae76;
 }
+html,body{width:100%;height:100%}
+body{overflow:hidden;background:var(--bg);color:var(--cream);font-family:"Montserrat",sans-serif}
+button,input{font:inherit}button{border:0}
+.bg{position:fixed;inset:0;overflow:hidden;background:
+ radial-gradient(circle at 50% 45%,rgba(210,165,75,.14),transparent 31%),
+ radial-gradient(circle at 10% 100%,rgba(120,25,34,.13),transparent 30%),#080706}
+.glow{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none}
+.glow-a{width:420px;height:420px;top:-100px;left:calc(50% - 210px);background:rgba(195,145,58,.12)}
+.glow-b{width:360px;height:360px;right:-100px;bottom:-120px;background:rgba(120,25,34,.12)}
+.noise{position:absolute;inset:0;opacity:.035;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+#app,.scene{position:relative;width:100%;height:100%}
+.scene{position:absolute;inset:0}
+.scene-active{opacity:1;visibility:visible}
+.intro{position:absolute;top:5.5%;left:50%;z-index:20;width:100%;transform:translateX(-50%);text-align:center}
+.overline,.tiny{color:rgba(245,234,216,.45);font-size:9px;letter-spacing:5px}
+.intro h1{margin-top:14px;font-family:"Cormorant Garamond",serif;font-size:clamp(52px,8vw,92px);font-weight:600;line-height:.82}
+.intro h1 em{color:var(--gold);font-style:italic}
+.intro p{margin-top:18px;color:rgba(245,234,216,.43);font-size:11px;letter-spacing:1.4px}
 
-:root {
-  --bg: #080706;
-  --cream: #f5ead8;
-  --gold: #d8b46e;
-  --gold-light: #f4d995;
-  --red: #7a2028;
-  --red-dark: #4c1218;
+.stage{position:absolute;left:50%;top:56%;width:min(900px,100vw);height:520px;transform:translate(-50%,-50%)}
+.ground-shadow{position:absolute;left:50%;top:57%;width:470px;height:95px;transform:translate(-50%,-50%);border-radius:50%;background:rgba(0,0,0,.7);filter:blur(25px);z-index:1}
+
+/* GÂTEAU VU DU DESSUS */
+.cake{position:absolute;left:50%;top:52%;width:390px;height:390px;transform:translate(-50%,-50%);z-index:10}
+.cake-body-ring{position:absolute;inset:12px;border-radius:50%;background:
+ linear-gradient(135deg,#6b3d20,#a96d3a 30%,#6b3b22 68%,#3f2015);
+ box-shadow:0 28px 35px rgba(0,0,0,.65),inset 0 -18px 24px rgba(20,7,3,.45);
 }
-
-html, body {
-  width: 100%;
-  height: 100%;
+.cake-top{position:absolute;inset:0;border-radius:50%;overflow:hidden;
+ background:
+ radial-gradient(circle at 32% 25%,rgba(255,255,255,.75),transparent 15%),
+ radial-gradient(circle at 70% 75%,rgba(123,35,28,.08),transparent 26%),
+ linear-gradient(145deg,#fff7e8 0%,#ead4ad 48%,#c9a56f 100%);
+ border:8px solid #d9b57d;
+ box-shadow:inset 0 0 0 3px rgba(255,250,235,.65),inset 0 -18px 28px rgba(88,45,17,.18),0 0 35px rgba(218,177,100,.12);
 }
+.icing-rim{position:absolute;inset:13px;border-radius:50%;border:2px dashed rgba(145,92,39,.34);box-shadow:inset 0 0 18px rgba(114,65,23,.1)}
+.cake-decoration{position:absolute;width:9px;height:9px;border-radius:50%;background:var(--gold-light);box-shadow:0 0 12px rgba(244,217,149,.6)}
+.deco-1{top:72px;left:84px}.deco-2{top:105px;left:60px}.deco-3{top:83px;right:78px}.deco-4{top:137px;right:51px}
+.deco-5{bottom:82px;left:74px}.deco-6{bottom:61px;left:128px}.deco-7{bottom:72px;right:88px}.deco-8{bottom:115px;right:54px}
+.cake-writing{position:absolute;left:50%;top:100px;z-index:7;transform:translateX(-50%);display:flex;align-items:center;gap:10px;color:#432a18;font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:700;white-space:nowrap;text-shadow:0 1px 0 rgba(255,255,255,.5)}
+.cake-writing b{color:#986b31;font-size:22px;font-style:italic}
+.infinity{position:absolute;left:50%;top:151px;z-index:7;transform:translateX(-50%);font-family:"Cormorant Garamond",serif;font-size:70px;line-height:1;color:#8e642d;text-shadow:0 2px 0 rgba(255,255,255,.45),0 4px 14px rgba(87,46,15,.2)}
+.candles{position:absolute;left:50%;top:24px;z-index:8;display:flex;gap:52px;transform:translateX(-50%)}
+.candle{position:relative;width:10px;height:48px;border-radius:5px;background:linear-gradient(90deg,#a77835,#f4d991,#b8873b);box-shadow:0 2px 7px rgba(75,36,10,.3)}
+.candle i{position:absolute;top:-17px;left:-1px;width:12px;height:18px;border-radius:60% 40% 60% 40%;background:#f2b75c;transform:rotate(45deg);box-shadow:0 0 22px rgba(242,183,92,.8);animation:flame .8s ease-in-out infinite alternate}
+@keyframes flame{from{transform:rotate(41deg) scale(.9)}to{transform:rotate(49deg) scale(1.08)}}
 
-body {
-  overflow: hidden;
-  background: var(--bg);
-  color: var(--cream);
-  font-family: "Montserrat", sans-serif;
-}
-
-button,
-input {
-  font: inherit;
-}
-
-button {
-  border: 0;
-}
-
-.bg {
-  position: fixed;
-  inset: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 45%, rgba(210,165,75,.14), transparent 31%),
-    radial-gradient(circle at 10% 100%, rgba(120,25,34,.13), transparent 30%),
-    #080706;
-}
-
-.glow {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(110px);
-  pointer-events: none;
-}
-
-.glow-a {
-  width: 420px;
-  height: 420px;
-  top: -100px;
-  left: calc(50% - 210px);
-  background: rgba(195,145,58,.12);
-}
-
-.glow-b {
-  width: 360px;
-  height: 360px;
-  right: -100px;
-  bottom: -120px;
-  background: rgba(120,25,34,.12);
-}
-
-.noise {
-  position: absolute;
-  inset: 0;
-  opacity: .035;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-#app,
-.scene {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.scene {
-  position: absolute;
-  inset: 0;
-}
-
-.scene-active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.intro {
-  position: absolute;
-  top: 7%;
-  left: 50%;
-  z-index: 20;
-  width: 100%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-.overline,
-.tiny {
-  color: rgba(245,234,216,.45);
-  font-size: 9px;
-  letter-spacing: 5px;
-}
-
-.intro h1 {
-  margin-top: 14px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(52px, 8vw, 92px);
-  font-weight: 600;
-  line-height: .82;
-}
-
-.intro h1 em {
-  color: var(--gold);
-  font-style: italic;
-}
-
-.intro p {
-  margin-top: 18px;
-  color: rgba(245,234,216,.43);
-  font-size: 11px;
-  letter-spacing: 1.4px;
-}
-
-.stage {
-  position: absolute;
-  left: 50%;
-  top: 55%;
-  width: min(900px, 100vw);
-  height: 510px;
-  transform: translate(-50%, -50%);
-}
-
-.ground-shadow {
-  position: absolute;
-  left: 50%;
-  bottom: 42px;
-  width: 330px;
-  height: 52px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: rgba(0,0,0,.72);
-  filter: blur(20px);
-  z-index: 1;
-}
-
-/* GÂTEAU */
-.cake {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 320px;
-  height: 290px;
-  transform: translate(-50%, -42%);
-  z-index: 10;
-}
-
-.cake-half {
-  position: absolute;
-  top: 62px;
-  width: 160px;
-  height: 195px;
-  overflow: hidden;
-  transition: transform .9s cubic-bezier(.18,.78,.2,1);
-}
-
-.cake-left {
-  left: 0;
-  transform-origin: right center;
-}
-
-.cake-right {
-  right: 0;
-  transform-origin: left center;
-}
-
-.cake-top,
-.icing,
-.cake-body,
-.cake-bottom {
-  position: absolute;
-  width: 320px;
-}
-
-.cake-top {
-  top: 0;
-  height: 84px;
-  border-radius: 50%;
-  background:
-    radial-gradient(ellipse at 50% 25%, #fff1dc 0%, #d9b985 48%, #90682f 100%);
-  box-shadow: inset 0 -9px 15px rgba(65,35,10,.28);
-}
-
-.cake-left .cake-top,
-.cake-left .icing,
-.cake-left .cake-body,
-.cake-left .cake-bottom {
-  right: 0;
-}
-
-.cake-right .cake-top,
-.cake-right .icing,
-.cake-right .cake-body,
-.cake-right .cake-bottom {
-  left: 0;
-}
-
-.icing {
-  top: 49px;
-  height: 48px;
-  border-radius: 50%;
-  background: linear-gradient(#fff1dc, #d7b684);
-}
-
-.cake-body {
-  top: 40px;
-  height: 122px;
-  background: linear-gradient(90deg, #64151d, #a23a42 50%, #741c25);
-}
-
-.cake-bottom {
-  top: 138px;
-  height: 75px;
-  border-radius: 0 0 50% 50%;
-  background: linear-gradient(90deg, #4c1117, #7a252d 50%, #50141a);
-}
-
-.decoration {
-  position: absolute;
-  z-index: 5;
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--gold-light);
-  box-shadow: 0 0 12px rgba(244,217,149,.5);
-}
-
-.d1 { top: 48px; left: 68px; }
-.d2 { top: 72px; left: 128px; }
-.d3 { top: 38px; left: 205px; }
-.d4 { top: 48px; left: 83px; }
-.d5 { top: 72px; left: 143px; }
-.d6 { top: 38px; left: 220px; }
-
-.cake-writing {
-  position: absolute;
-  left: 50%;
-  top: 108px;
-  z-index: 25;
-  display: flex;
-  gap: 9px;
-  align-items: center;
-  transform: translateX(-50%);
-  color: #49331c;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 25px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: opacity .25s ease;
-}
-
-.cake-writing b {
-  color: #8f6935;
-  font-size: 18px;
-  font-style: italic;
-}
-
-.candles {
-  position: absolute;
-  left: 50%;
-  top: 10px;
-  z-index: 30;
-  display: flex;
-  gap: 43px;
-  transform: translateX(-50%);
-}
-
-.candle {
-  position: relative;
-  width: 9px;
-  height: 55px;
-  border-radius: 4px;
-  background: linear-gradient(90deg, #a77835, #f4d991, #b8873b);
-}
-
-.candle i {
-  position: absolute;
-  top: -17px;
-  left: -1px;
-  width: 12px;
-  height: 18px;
-  border-radius: 60% 40% 60% 40%;
-  background: #f2b75c;
-  transform: rotate(45deg);
-  box-shadow: 0 0 22px rgba(242,183,92,.8);
-  animation: flame .8s ease-in-out infinite alternate;
-}
-
-@keyframes flame {
-  from { transform: rotate(41deg) scale(.9); }
-  to { transform: rotate(49deg) scale(1.08); }
+/* PART DE GÂTEAU : une seule part se détache */
+.cake-slice{position:absolute;z-index:12;left:50%;top:50%;width:205px;height:205px;transform:translate(-3%,-96%) rotate(45deg);transform-origin:8% 92%;opacity:0;pointer-events:none;clip-path:polygon(0 0,100% 0,0 100%)}
+.slice-face{position:absolute;inset:0;background:linear-gradient(145deg,#fff1d5,#d9b77f 55%,#a66b3d);border:5px solid #c69b60;box-shadow:inset 0 0 25px rgba(77,35,12,.2)}
+.slice-face:after{content:"";position:absolute;left:5%;right:5%;bottom:7%;height:18%;border-radius:50%;background:linear-gradient(#f5ead8,#b97843);opacity:.9}
+.slice-layer{position:absolute;left:7%;right:7%;height:15px;border-radius:50%;box-shadow:0 2px 5px rgba(63,25,8,.18)}
+.layer-1{top:38%;background:#7c1e29}.layer-2{top:51%;background:#f3d6a2}.layer-3{top:64%;background:#7c1e29}
+.slice-cream{position:absolute;width:22px;height:22px;border-radius:50%;background:#fff3df;box-shadow:0 0 5px rgba(98,54,18,.18)}
+.cream-1{top:24%;left:36%}.cream-2{top:48%;left:67%}
+.cut-line{position:absolute;z-index:11;left:50%;top:50%;width:4px;height:250px;transform:translate(-50%,-96%) rotate(45deg);transform-origin:50% 100%;background:linear-gradient(transparent,#8b632f 25%,#8b632f 75%,transparent);opacity:0;box-shadow:0 0 12px rgba(216,180,110,.5)}
+.cake.is-cutting .cake-top{animation:cakePulse .65s ease forwards}
+.cake.is-cutting .cut-line{animation:showCut .3s ease forwards}
+.cake.is-cutting .cake-slice{animation:sliceOut 1.15s cubic-bezier(.16,.82,.2,1) .22s forwards}
+.cake.is-cutting .cake-writing,.cake.is-cutting .infinity,.cake.is-cutting .candles{animation:fadeTop .28s ease .05s forwards}
+@keyframes cakePulse{0%{filter:brightness(1)}50%{filter:brightness(1.12)}100%{filter:brightness(1)}}
+@keyframes showCut{to{opacity:.75}}
+@keyframes fadeTop{to{opacity:0}}
+@keyframes sliceOut{
+  0%{opacity:0;transform:translate(-3%,-96%) rotate(45deg)}
+  12%{opacity:1}
+  55%{opacity:1;transform:translate(22%,-112%) rotate(45deg)}
+  100%{opacity:1;transform:translate(58%,-132%) rotate(45deg)}
 }
 
 /* COUTEAU */
-.knife {
-  position: absolute;
-  right: 2%;
-  top: 50%;
-  z-index: 50;
-  width: 300px;
-  padding: 0;
-  background: transparent;
-  color: rgba(245,234,216,.42);
-  cursor: pointer;
-  transform: translateY(-45%) rotate(-7deg);
-  transition: transform .25s ease, opacity .3s ease;
-}
-
-.knife:hover {
-  transform: translateY(-50%) rotate(-4deg) scale(1.025);
-  color: var(--cream);
-}
-
-.knife svg {
-  display: block;
-  width: 100%;
-  height: auto;
-  filter: drop-shadow(0 18px 16px rgba(0,0,0,.7));
-}
-
-.knife span {
-  display: block;
-  margin-top: 2px;
-  font-size: 8px;
-  letter-spacing: 3px;
-}
-
-.hint {
-  position: absolute;
-  bottom: 4.5%;
-  left: 50%;
-  transform: translateX(-50%);
-  color: rgba(245,234,216,.3);
-  font-size: 9px;
-  letter-spacing: 2px;
-}
+.knife{position:absolute;right:2%;top:50%;z-index:50;width:300px;padding:0;background:transparent;color:rgba(245,234,216,.42);cursor:pointer;transform:translateY(-45%) rotate(-7deg);transition:transform .25s ease,opacity .3s ease}
+.knife:hover{transform:translateY(-50%) rotate(-4deg) scale(1.025);color:var(--cream)}
+.knife svg{display:block;width:100%;height:auto;filter:drop-shadow(0 18px 16px rgba(0,0,0,.7))}
+.knife span{display:block;margin-top:2px;font-size:8px;letter-spacing:3px}
+.hint{position:absolute;bottom:3.5%;left:50%;transform:translateX(-50%);color:rgba(245,234,216,.3);font-size:9px;letter-spacing:2px}
 
 /* LETTRE */
-.letter {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  z-index: 4;
-  width: 410px;
-  min-height: 320px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translate(-50%, -48%) scale(.15) rotateX(65deg);
-}
-
-.letter.open {
-  animation: letterOpen 1.25s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-@keyframes letterOpen {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -48%) scale(.15) rotateX(65deg);
-  }
-  45% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(.88) rotateX(12deg);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1) rotateX(0);
-  }
-}
-
-.letter-paper {
-  position: relative;
-  min-height: 320px;
-  padding: 36px;
-  color: #3b2a1d;
-  background: linear-gradient(145deg, #fffaf0, #ebddc5);
-  box-shadow: 0 30px 80px rgba(0,0,0,.65);
-}
-
-.letter-paper::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 27px,
-    rgba(100,70,40,.035) 28px
-  );
-  pointer-events: none;
-}
-
-.letter-inner {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-}
-
-.letter-label {
-  color: #a07b46;
-  font-size: 8px;
-  letter-spacing: 4px;
-}
-
-.letter-inner h2 {
-  margin-top: 10px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 37px;
-  line-height: .9;
-}
-
-.letter-name {
-  margin-top: 3px;
-  color: #9a343b;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 34px;
-  font-style: italic;
-  font-weight: 600;
-}
-
-.letter-rule {
-  width: 52px;
-  height: 1px;
-  margin: 16px auto;
-  background: #b28b51;
-}
-
-.letter-inner p {
-  margin-top: 9px;
-  color: #665344;
-  font-size: 10px;
-  line-height: 1.65;
-}
-
-.signature {
-  margin-top: 17px;
-  color: #806238;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 15px;
-}
-
-.signature strong {
-  display: block;
-  color: #9a343b;
-  font-size: 22px;
-}
+.letter{position:absolute;left:50%;top:50%;z-index:4;width:410px;min-height:320px;opacity:0;pointer-events:none;transform:translate(-50%,-48%) scale(.15) rotateX(65deg)}
+.letter.open{animation:letterOpen 1.15s cubic-bezier(.2,.8,.2,1) forwards}
+@keyframes letterOpen{0%{opacity:0;transform:translate(-50%,-48%) scale(.15) rotateX(65deg)}45%{opacity:1;transform:translate(-50%,-50%) scale(.88) rotateX(12deg)}100%{opacity:1;transform:translate(-50%,-50%) scale(1) rotateX(0)}}
+.letter-paper{position:relative;min-height:320px;padding:36px;color:#3b2a1d;background:linear-gradient(145deg,#fffaf0,#ebddc5);box-shadow:0 30px 80px rgba(0,0,0,.65)}
+.letter-paper:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 27px,rgba(100,70,40,.035) 28px);pointer-events:none}
+.letter-inner{position:relative;z-index:1;text-align:center}.letter-label{color:#a07b46;font-size:8px;letter-spacing:4px}
+.letter-inner h2{margin-top:10px;font-family:"Cormorant Garamond",serif;font-size:37px;line-height:.9}
+.letter-name{margin-top:3px;color:#9a343b;font-family:"Cormorant Garamond",serif;font-size:34px;font-style:italic;font-weight:600}
+.letter-rule{width:52px;height:1px;margin:16px auto;background:#b28b51}
+.letter-inner p{margin-top:9px;color:#665344;font-size:10px;line-height:1.65}
+.signature{margin-top:17px;color:#806238;font-family:"Cormorant Garamond",serif;font-size:15px}
+.signature strong{display:block;color:#9a343b;font-size:22px}
 
 /* MOT DE PASSE */
-.password-scene,
-.broken-scene {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  visibility: hidden;
-}
+.password-scene,.broken-scene{display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden}
+.password-card{width:min(90%,460px);padding:48px 40px;text-align:center;background:rgba(16,13,11,.84);border:1px solid rgba(216,180,110,.22);backdrop-filter:blur(24px);box-shadow:0 30px 100px rgba(0,0,0,.6)}
+.password-card h2{margin-top:14px;font-family:"Cormorant Garamond",serif;font-size:45px;font-weight:500}
+.password-card p{margin-top:12px;color:rgba(245,234,216,.5);font-size:12px;line-height:1.8}
+.password-card input{display:block;width:100%;height:56px;margin-top:28px;outline:0;border:1px solid rgba(216,180,110,.25);background:rgba(255,255,255,.035);color:var(--cream);text-align:center;font-size:20px;letter-spacing:8px}
+.password-card input:focus{border-color:var(--gold);box-shadow:0 0 24px rgba(216,180,110,.1)}
+.password-card button,.broken-scene button{margin-top:17px;padding:15px 30px;background:linear-gradient(135deg,var(--gold-light),var(--gold));color:#17110b;cursor:pointer;font-size:10px;font-weight:600;letter-spacing:2px;transition:transform .2s ease}
+.password-card button:hover,.broken-scene button:hover{transform:translateY(-2px)}
+.error{display:none;margin-top:15px;color:#d06a70;font-size:10px}
 
-.password-card {
-  width: min(90%, 460px);
-  padding: 48px 40px;
-  text-align: center;
-  background: rgba(16,13,11,.84);
-  border: 1px solid rgba(216,180,110,.22);
-  backdrop-filter: blur(24px);
-  box-shadow: 0 30px 100px rgba(0,0,0,.6);
-}
-
-.password-card h2 {
-  margin-top: 14px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 45px;
-  font-weight: 500;
-}
-
-.password-card p {
-  margin-top: 12px;
-  color: rgba(245,234,216,.5);
-  font-size: 12px;
-  line-height: 1.8;
-}
-
-.password-card input {
-  display: block;
-  width: 100%;
-  height: 56px;
-  margin-top: 28px;
-  outline: 0;
-  border: 1px solid rgba(216,180,110,.25);
-  background: rgba(255,255,255,.035);
-  color: var(--cream);
-  text-align: center;
-  font-size: 20px;
-  letter-spacing: 8px;
-}
-
-.password-card input:focus {
-  border-color: var(--gold);
-  box-shadow: 0 0 24px rgba(216,180,110,.1);
-}
-
-.password-card button,
-.broken-scene button {
-  margin-top: 17px;
-  padding: 15px 30px;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  color: #17110b;
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 2px;
-  transition: transform .2s ease;
-}
-
-.password-card button:hover,
-.broken-scene button:hover {
-  transform: translateY(-2px);
-}
-
-.error {
-  display: none;
-  margin-top: 15px;
-  color: #d06a70;
-  font-size: 10px;
-}
-
-/* ÉCRAN ERREUR */
-.broken-scene {
-  flex-direction: column;
-  background: rgba(6,5,5,.98);
-}
-
-.broken-knife {
-  position: relative;
-  width: 165px;
-  height: 70px;
-  transform: rotate(-17deg);
-  animation: brokenShake .4s ease;
-}
-
-.broken-blade {
-  position: absolute;
-  left: 0;
-  top: 24px;
-  width: 90px;
-  height: 23px;
-  background: linear-gradient(#eee, #656a6d);
-  clip-path: polygon(0 0,100% 0,73% 50%,100% 100%,0 100%);
-}
-
-.broken-handle {
-  position: absolute;
-  right: 0;
-  top: 24px;
-  width: 72px;
-  height: 23px;
-  border-radius: 5px 15px 15px 5px;
-  background: linear-gradient(90deg,#17120f,#57463a);
-}
-
-@keyframes brokenShake {
-  0% { transform: rotate(-17deg); }
-  20% { transform: rotate(-28deg) translateX(-7px); }
-  40% { transform: rotate(-8deg) translateX(7px); }
-  60% { transform: rotate(-25deg) translateX(-5px); }
-  80% { transform: rotate(-10deg) translateX(4px); }
-  100% { transform: rotate(-17deg); }
-}
-
-.danger {
-  margin-top: 25px;
-  color: #bd555c;
-}
-
-.broken-scene h2 {
-  margin-top: 12px;
-  font-family: "Cormorant Garamond", serif;
-  font-size: 55px;
-  font-weight: 500;
-  text-align: center;
-}
-
-.broken-scene p {
-  margin-top: 8px;
-  color: rgba(245,234,216,.45);
-  font-size: 11px;
-}
-
-/* ANIMATION DU GÂTEAU */
-.cake.is-cutting .cake-left {
-  animation: cutLeft .9s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-.cake.is-cutting .cake-right {
-  animation: cutRight .9s cubic-bezier(.2,.8,.2,1) forwards;
-}
-
-.cake.is-cutting .cake-writing {
-  animation: writingOut .25s ease forwards;
-}
-
-@keyframes cutLeft {
-  0% { transform: translateX(0); }
-  35% { transform: translateX(-5px); }
-  100% { transform: translateX(-128px) rotate(-3deg); }
-}
-
-@keyframes cutRight {
-  0% { transform: translateX(0); }
-  35% { transform: translateX(5px); }
-  100% { transform: translateX(128px) rotate(3deg); }
-}
-
-@keyframes writingOut {
-  from { opacity: 1; }
-  to { opacity: 0; }
-}
+/* ERREUR */
+.broken-scene{flex-direction:column;background:rgba(6,5,5,.98)}
+.broken-knife{position:relative;width:165px;height:70px;transform:rotate(-17deg);animation:brokenShake .4s ease}
+.broken-blade{position:absolute;left:0;top:24px;width:90px;height:23px;background:linear-gradient(#eee,#656a6d);clip-path:polygon(0 0,100% 0,73% 50%,100% 100%,0 100%)}
+.broken-handle{position:absolute;right:0;top:24px;width:72px;height:23px;border-radius:5px 15px 15px 5px;background:linear-gradient(90deg,#17120f,#57463a)}
+@keyframes brokenShake{0%{transform:rotate(-17deg)}20%{transform:rotate(-28deg) translateX(-7px)}40%{transform:rotate(-8deg) translateX(7px)}60%{transform:rotate(-25deg) translateX(-5px)}80%{transform:rotate(-10deg) translateX(4px)}100%{transform:rotate(-17deg)}}
+.danger{margin-top:25px;color:#bd555c}.broken-scene h2{margin-top:12px;font-family:"Cormorant Garamond",serif;font-size:55px;font-weight:500;text-align:center}.broken-scene p{margin-top:8px;color:rgba(245,234,216,.45);font-size:11px}
 
 /* RESPONSIVE */
-@media (max-width: 800px) {
-  .intro { top: 6%; }
-  .intro h1 { font-size: 56px; }
-  .stage { top: 56%; height: 470px; }
-
-  .cake {
-    transform: translate(-50%, -42%) scale(.72);
-  }
-
-  .knife {
-    right: -25px;
-    top: 52%;
-    width: 220px;
-  }
-
-  .letter {
-    width: 350px;
-  }
+@media(max-width:800px){
+ .intro{top:5%}.intro h1{font-size:56px}.stage{top:57%;height:470px}
+ .cake{transform:translate(-50%,-50%) scale(.78)}
+ .knife{right:-25px;top:53%;width:220px}.letter{width:350px}
 }
-
-@media (max-width: 520px) {
-  .intro h1 { font-size: 48px; }
-  .intro p { font-size: 9px; }
-
-  .stage {
-    top: 57%;
-    height: 440px;
-  }
-
-  .cake {
-    transform: translate(-50%, -42%) scale(.62);
-  }
-
-  .knife {
-    right: -8px;
-    top: 57%;
-    width: 175px;
-  }
-
-  .knife span {
-    font-size: 7px;
-  }
-
-  .letter {
-    width: 315px;
-  }
-
-  .letter-paper {
-    padding: 27px;
-  }
-
-  .letter-inner h2 {
-    font-size: 31px;
-  }
-
-  .letter-inner p {
-    font-size: 9px;
-  }
-
-  .password-card {
-    padding: 38px 25px;
-  }
-
-  .password-card h2 {
-    font-size: 37px;
-  }
-
-  .broken-scene h2 {
-    font-size: 43px;
-    padding: 0 25px;
-  }
+@media(max-width:520px){
+ .intro h1{font-size:48px}.intro p{font-size:9px}.stage{top:58%;height:440px}
+ .cake{transform:translate(-50%,-50%) scale(.60)}
+ .knife{right:-8px;top:57%;width:175px}.knife span{font-size:7px}
+ .letter{width:315px}.letter-paper{padding:27px}.letter-inner h2{font-size:31px}.letter-inner p{font-size:9px}
+ .password-card{padding:38px 25px}.password-card h2{font-size:37px}.broken-scene h2{font-size:43px;padding:0 25px}
 }

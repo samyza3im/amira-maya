@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#080706">
   <title>Maya & Amira — Joyeux anniversaire</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,7 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <div class="bg" aria-hidden="true">
     <div class="glow glow-a"></div>
@@ -19,8 +18,6 @@
   </div>
 
   <main id="app">
-
-    <!-- SCÈNE DU GÂTEAU -->
     <section id="cakeScene" class="scene scene-active">
       <div class="intro">
         <div class="overline">UNE PETITE SURPRISE</div>
@@ -31,7 +28,6 @@
       <div class="stage">
         <div class="ground-shadow"></div>
 
-        <!-- Lettre derrière le gâteau -->
         <div id="letter" class="letter" aria-hidden="true">
           <div class="letter-paper">
             <div class="letter-inner">
@@ -39,7 +35,6 @@
               <h2>Joyeux anniversaire</h2>
               <div class="letter-name">Amira</div>
               <div class="letter-rule"></div>
-
               <p>
                 Aujourd'hui est une journée spéciale, alors prends le temps
                 de profiter de chaque petit bonheur qui vient à toi.
@@ -52,7 +47,6 @@
                 Que tout ce que tu souhaites trouve doucement son chemin
                 jusqu'à toi.
               </p>
-
               <div class="signature">
                 Avec beaucoup d'affection
                 <strong>Maya &amp; Amira</strong>
@@ -61,42 +55,50 @@
           </div>
         </div>
 
-        <!-- Gâteau -->
+        <!-- Gâteau vu du dessus -->
         <div id="cake" class="cake" aria-label="Gâteau Maya et Amira">
-          <div class="cake-half cake-left">
-            <div class="cake-top"></div>
-            <div class="icing"></div>
-            <div class="cake-body"></div>
-            <div class="cake-bottom"></div>
-            <span class="decoration d1"></span>
-            <span class="decoration d2"></span>
-            <span class="decoration d3"></span>
+          <div class="cake-body-ring"></div>
+          <div class="cake-top">
+            <div class="icing-rim"></div>
+
+            <div class="cake-decoration deco-1"></div>
+            <div class="cake-decoration deco-2"></div>
+            <div class="cake-decoration deco-3"></div>
+            <div class="cake-decoration deco-4"></div>
+            <div class="cake-decoration deco-5"></div>
+            <div class="cake-decoration deco-6"></div>
+            <div class="cake-decoration deco-7"></div>
+            <div class="cake-decoration deco-8"></div>
+
+            <div class="cake-writing">
+              <span>Maya</span>
+              <b>&amp;</b>
+              <span>Amira</span>
+            </div>
+
+            <div class="infinity" aria-label="infini">∞</div>
+
+            <div class="candles">
+              <div class="candle"><i></i></div>
+              <div class="candle"><i></i></div>
+              <div class="candle"><i></i></div>
+            </div>
           </div>
 
-          <div class="cake-half cake-right">
-            <div class="cake-top"></div>
-            <div class="icing"></div>
-            <div class="cake-body"></div>
-            <div class="cake-bottom"></div>
-            <span class="decoration d4"></span>
-            <span class="decoration d5"></span>
-            <span class="decoration d6"></span>
+          <!-- Une seule part : elle se détache après la coupe -->
+          <div id="slice" class="cake-slice">
+            <div class="slice-face">
+              <span class="slice-layer layer-1"></span>
+              <span class="slice-layer layer-2"></span>
+              <span class="slice-layer layer-3"></span>
+              <span class="slice-cream cream-1"></span>
+              <span class="slice-cream cream-2"></span>
+            </div>
           </div>
 
-          <div class="cake-writing">
-            <span>Maya</span>
-            <b>&amp;</b>
-            <span>Amira</span>
-          </div>
-
-          <div class="candles">
-            <div class="candle"><i></i></div>
-            <div class="candle candle-center"><i></i></div>
-            <div class="candle"><i></i></div>
-          </div>
+          <div class="cut-line" aria-hidden="true"></div>
         </div>
 
-        <!-- Couteau -->
         <button id="knife" class="knife" type="button" aria-label="Prendre le couteau">
           <svg viewBox="0 0 360 130" role="img" aria-hidden="true">
             <defs>
@@ -118,7 +120,6 @@
                 <stop offset="1" stop-color="#f1cc70"/>
               </linearGradient>
             </defs>
-
             <path class="svg-blade"
               d="M15 34 C86 25 154 26 224 34 L224 69 C151 79 84 88 15 75 C7 63 7 46 15 34Z"
               fill="url(#blade)"/>
@@ -138,23 +139,18 @@
       <div id="hint" class="hint">Le couteau ouvre la surprise</div>
     </section>
 
-    <!-- MOT DE PASSE -->
     <section id="passwordScene" class="scene password-scene" aria-hidden="true">
       <div class="password-card">
         <div class="tiny">LA SURPRISE EST PRÊTE</div>
         <h2>Une dernière chose...</h2>
         <p>Entre la date d'anniversaire d'Amira au format <b>JJMM</b>.</p>
-
-        <input id="dateInput" type="text" inputmode="numeric"
-               maxlength="4" placeholder="JJMM" autocomplete="off"
-               aria-label="Date d'anniversaire">
-
+        <input id="dateInput" type="text" inputmode="numeric" maxlength="4"
+               placeholder="JJMM" autocomplete="off" aria-label="Date d'anniversaire">
         <button id="validate" type="button">DÉCOUVRIR</button>
         <div id="error" class="error">Ce n'est pas la bonne date.</div>
       </div>
     </section>
 
-    <!-- ERREUR -->
     <section id="brokenScene" class="scene broken-scene" aria-hidden="true">
       <div class="broken-knife">
         <div class="broken-blade"></div>
@@ -167,9 +163,7 @@
     </section>
   </main>
 
-  <!-- Mets ton fichier music.mp3 à côté de index.html -->
   <audio id="music" src="music.mp3" preload="auto"></audio>
-
   <script src="script.js"></script>
 </body>
 </html>
