@@ -5,12 +5,12 @@
 }
 
 :root {
-    --bg: #070606;
+    --background: #080706;
     --cream: #f5ead8;
-    --gold: #d6b06a;
-    --gold-light: #f2d48f;
-    --red: #741b24;
-    --red-light: #a83b43;
+    --gold: #d5ae67;
+    --gold-light: #f0d18e;
+    --red: #711d25;
+    --red-light: #a33c42;
 }
 
 html,
@@ -21,15 +21,15 @@ body {
 
 body {
     overflow: hidden;
-    background: var(--bg);
+    background: var(--background);
     color: var(--cream);
     font-family: "Montserrat", sans-serif;
 }
 
 
-/* ================================
+/* ==================================
    BACKGROUND
-================================ */
+================================== */
 
 .background {
     position: fixed;
@@ -38,15 +38,15 @@ body {
     background:
         radial-gradient(
             circle at 50% 42%,
-            rgba(190, 145, 65, 0.14),
+            rgba(178, 132, 57, .13),
             transparent 34%
         ),
         radial-gradient(
-            circle at 15% 90%,
-            rgba(120, 25, 34, 0.12),
+            circle at 20% 90%,
+            rgba(111, 25, 32, .12),
             transparent 30%
         ),
-        #070606;
+        #080706;
 }
 
 .light {
@@ -57,34 +57,33 @@ body {
 }
 
 .light-1 {
-    width: 380px;
-    height: 380px;
+    width: 360px;
+    height: 360px;
+    background: rgba(183, 138, 62, .15);
     top: 5%;
     left: 38%;
-    background: rgba(195, 150, 70, 0.15);
 }
 
 .light-2 {
-    width: 320px;
-    height: 320px;
+    width: 300px;
+    height: 300px;
+    background: rgba(112, 24, 31, .12);
+    bottom: -120px;
     right: 5%;
-    bottom: -140px;
-    background: rgba(120, 25, 34, 0.12);
 }
 
 .grain {
     position: absolute;
     inset: 0;
-    opacity: 0.035;
-    pointer-events: none;
+    opacity: .035;
     background-image:
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
 }
 
 
-/* ================================
-   EXPERIENCE
-================================ */
+/* ==================================
+   MAIN
+================================== */
 
 .experience {
     position: relative;
@@ -92,15 +91,9 @@ body {
     height: 100%;
 }
 
-
-/* ================================
-   MAIN SCENE
-================================ */
-
 .main-scene {
     position: absolute;
     inset: 0;
-
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -108,32 +101,30 @@ body {
 }
 
 
-/* ================================
-   INTRO
-================================ */
+/* ==================================
+   TITRE
+================================== */
 
 .intro-text {
     position: absolute;
-    top: 7%;
-    z-index: 50;
-
+    top: 8%;
     text-align: center;
+    z-index: 10;
 }
 
 .intro-text > span {
-    color: rgba(245, 234, 216, 0.42);
     font-size: 9px;
     letter-spacing: 5px;
+    color: rgba(245, 234, 216, .42);
 }
 
 .intro-text h1 {
-    margin-top: 15px;
-
+    margin-top: 13px;
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(55px, 8vw, 95px);
+    font-size: clamp(52px, 8vw, 95px);
     font-weight: 500;
-
-    line-height: 0.8;
+    line-height: .8;
+    letter-spacing: 1px;
 }
 
 .intro-text h1 i {
@@ -142,130 +133,98 @@ body {
 }
 
 .intro-text p {
-    margin-top: 20px;
-
-    color: rgba(245, 234, 216, 0.45);
-
+    margin-top: 18px;
+    color: rgba(245, 234, 216, .45);
     font-size: 11px;
     letter-spacing: 1.5px;
 }
 
 
-/* ================================
+/* ==================================
    CAKE AREA
-================================ */
+================================== */
 
 .cake-area {
     position: relative;
-
-    width: 760px;
-    height: 500px;
-
+    width: 720px;
+    height: 480px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 100px;
 }
 
 
-/* ================================
-   CAKE SHADOW
-================================ */
+/* ==================================
+   CAKE
+================================== */
+
+.cake {
+    position: absolute;
+    width: 310px;
+    height: 280px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -42%);
+    z-index: 5;
+    transition: transform .35s ease;
+}
 
 .cake-shadow {
     position: absolute;
-
-    width: 310px;
-    height: 48px;
-
+    width: 300px;
+    height: 45px;
     left: 50%;
-    bottom: 65px;
-
+    bottom: 50px;
     transform: translateX(-50%);
-
     border-radius: 50%;
-
-    background: rgba(0, 0, 0, 0.7);
-
-    filter: blur(20px);
-
+    background: rgba(0, 0, 0, .65);
+    filter: blur(18px);
     z-index: 1;
 }
 
 
-/* ================================
-   CAKE
-================================ */
-
-.cake {
-    position: absolute;
-
-    width: 310px;
-    height: 280px;
-
-    left: 50%;
-    top: 50%;
-
-    transform:
-        translate(-50%, -42%);
-
-    z-index: 10;
-}
-
-
-/* ================================
+/* ==================================
    CAKE HALVES
-================================ */
+================================== */
 
 .cake-half {
     position: absolute;
-
     top: 60px;
-
     width: 155px;
     height: 190px;
-
     overflow: hidden;
-
     transition:
-        transform 0.8s
-        cubic-bezier(.2, .8, .2, 1);
+        transform .9s cubic-bezier(.2,.8,.2,1),
+        opacity .4s ease;
 }
 
 .cake-left {
     left: 0;
-
     transform-origin: right center;
 }
 
 .cake-right {
     right: 0;
-
     transform-origin: left center;
 }
 
 
-/* ================================
-   CAKE TOP
-================================ */
+/* top */
 
 .cake-top {
     position: absolute;
-
-    top: 0;
-
     width: 310px;
     height: 82px;
-
+    top: 0;
     border-radius: 50%;
-
     background:
         radial-gradient(
             ellipse at 50% 25%,
-            #fff0d8 0%,
-            #d8b986 45%,
-            #906a37 100%
+            #f8ead1 0%,
+            #d9bb89 45%,
+            #96703c 100%
         );
-
-    box-shadow:
-        inset 0 -8px 14px rgba(70, 40, 15, 0.3);
 }
 
 .cake-left .cake-top {
@@ -277,25 +236,18 @@ body {
 }
 
 
-/* ================================
-   ICING
-================================ */
+/* icing */
 
 .icing-top {
     position: absolute;
-
-    top: 48px;
-
     width: 310px;
-    height: 46px;
-
-    background:
-        linear-gradient(
-            180deg,
-            #fff0dc,
-            #d7b788
-        );
-
+    height: 45px;
+    top: 48px;
+    background: linear-gradient(
+        180deg,
+        #f8ead6,
+        #d7b889
+    );
     border-radius: 50%;
 }
 
@@ -308,24 +260,19 @@ body {
 }
 
 
-/* ================================
-   CAKE BODY
-================================ */
+/* body */
 
 .cake-body {
     position: absolute;
-
-    top: 38px;
-
     width: 310px;
     height: 120px;
-
+    top: 38px;
     background:
         linear-gradient(
             90deg,
-            #64151d,
-            #a13b43,
-            #771d26
+            #6d1820,
+            #9c363d,
+            #7b2028
         );
 }
 
@@ -338,27 +285,20 @@ body {
 }
 
 
-/* ================================
-   CAKE BOTTOM
-================================ */
+/* bottom */
 
 .cake-bottom {
     position: absolute;
-
-    top: 135px;
-
     width: 310px;
     height: 75px;
-
-    border-radius:
-        0 0 50% 50%;
-
+    top: 135px;
+    border-radius: 0 0 50% 50%;
     background:
         linear-gradient(
             90deg,
-            #4d1218,
-            #79262e,
-            #51151b
+            #4e151b,
+            #77242a,
+            #55171d
         );
 }
 
@@ -371,22 +311,16 @@ body {
 }
 
 
-/* ================================
-   DECORATIONS
-================================ */
+/* decorations */
 
 .cake-decoration {
     position: absolute;
-
     width: 9px;
     height: 9px;
-
     border-radius: 50%;
-
     background: var(--gold-light);
-
     box-shadow:
-        0 0 12px rgba(242, 212, 143, 0.5);
+        0 0 10px rgba(240, 209, 142, .4);
 }
 
 .cake-decoration:nth-child(1) {
@@ -405,133 +339,107 @@ body {
 }
 
 
-/* ================================
-   CAKE NAME
-================================ */
+/* ==================================
+   CAKE TITLE
+================================== */
 
 .cake-title {
     position: absolute;
-
     left: 50%;
     top: 105px;
-
     transform: translateX(-50%);
-
-    z-index: 40;
+    z-index: 20;
 
     display: flex;
     align-items: center;
-
     gap: 9px;
 
-    color: #49331c;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
+    font-family: "Cormorant Garamond", serif;
     font-size: 24px;
     font-weight: 600;
 
+    color: #49331c;
+
     transition:
-        opacity 0.25s ease;
+        opacity .35s ease,
+        transform .35s ease;
 }
 
 .cake-title small {
-    color: #8c6733;
-
+    color: #8d6937;
     font-size: 18px;
-
     font-style: italic;
 }
 
 
-/* ================================
+/* ==================================
    CANDLES
-================================ */
+================================== */
 
 .candles {
     position: absolute;
-
     left: 50%;
     top: 10px;
-
     transform: translateX(-50%);
-
     display: flex;
-
     gap: 42px;
-
-    z-index: 50;
+    z-index: 30;
 }
 
 .candle {
     position: relative;
-
     width: 9px;
     height: 55px;
-
     border-radius: 4px;
-
     background:
         linear-gradient(
             90deg,
-            #a47635,
-            #f4d790,
-            #b8873c
+            #a77a38,
+            #f3d58f,
+            #b8893f
         );
 }
 
 .flame {
     position: absolute;
-
     width: 12px;
     height: 18px;
-
-    left: -1px;
     top: -18px;
+    left: -1px;
+
+    background: #f0b65a;
 
     border-radius:
         60% 40% 60% 40%;
 
-    background: #f0b75b;
-
     transform: rotate(45deg);
 
     box-shadow:
-        0 0 22px rgba(240, 183, 91, 0.85);
+        0 0 20px rgba(240, 182, 90, .8);
 
-    animation:
-        flame 0.9s
-        ease-in-out
-        infinite alternate;
+    animation: flameMove 1s ease-in-out infinite alternate;
 }
 
-@keyframes flame {
-
+@keyframes flameMove {
     from {
-        transform:
-            rotate(42deg)
-            scale(0.9);
+        transform: rotate(42deg) scale(.9);
     }
 
     to {
-        transform:
-            rotate(48deg)
-            scale(1.08);
+        transform: rotate(48deg) scale(1.08);
     }
 }
 
 
-/* ================================
-   REAL KNIFE
-================================ */
+/* ==================================
+   KNIFE
+================================== */
 
 .knife-button {
     position: absolute;
 
-    right: -30px;
-    top: 170px;
+    right: -20px;
+    top: 160px;
 
     display: flex;
     flex-direction: column;
@@ -539,42 +447,35 @@ body {
 
     gap: 8px;
 
-    padding: 0;
-
     background: transparent;
 
-    color: rgba(245, 234, 216, 0.45);
-
-    cursor: pointer;
-
-    z-index: 80;
+    color: rgba(245, 234, 216, .45);
 
     transition:
-        transform 0.25s ease,
-        color 0.25s ease,
-        opacity 0.35s ease;
+        transform .25s ease,
+        color .25s ease;
+
+    z-index: 40;
 }
 
 .knife-button:hover {
+    transform: translateY(-5px);
     color: var(--cream);
-
-    transform:
-        translateY(-5px);
 }
 
 .real-knife {
-    width: 275px;
+    width: 270px;
     height: auto;
 
     transform: rotate(-7deg);
 
     filter:
         drop-shadow(
-            0 15px 14px rgba(0, 0, 0, 0.65)
+            0 12px 15px rgba(0,0,0,.55)
         );
 
     transition:
-        transform 0.25s ease;
+        transform .3s ease;
 }
 
 .knife-button:hover .real-knife {
@@ -585,18 +486,41 @@ body {
 
 .knife-button span {
     font-size: 9px;
-
     letter-spacing: 2px;
 }
 
 
-/* ================================
-   PASSWORD
-================================ */
+/* ==================================
+   KNIFE ANIMATION
+================================== */
+
+.knife-button.moving {
+    pointer-events: none;
+
+    transition:
+        transform .9s cubic-bezier(.15,.85,.2,1);
+}
+
+
+/* ==================================
+   BOTTOM
+================================== */
+
+.bottom-hint {
+    position: absolute;
+    bottom: 5%;
+    font-size: 9px;
+    letter-spacing: 2px;
+    color: rgba(245,234,216,.3);
+}
+
+
+/* ==================================
+   PASSWORD SCREEN
+================================== */
 
 .password-screen {
     position: absolute;
-
     inset: 0;
 
     display: none;
@@ -611,36 +535,31 @@ body {
 
 .password-box {
     width: min(90%, 470px);
-
     padding: 50px 40px;
 
     text-align: center;
 
     background:
-        rgba(17, 13, 11, 0.84);
+        rgba(16, 13, 11, .82);
 
     border:
-        1px solid rgba(214, 176, 106, 0.22);
+        1px solid rgba(213,174,103,.22);
 
     backdrop-filter: blur(25px);
 
     box-shadow:
-        0 30px 100px rgba(0, 0, 0, 0.6);
+        0 30px 100px rgba(0,0,0,.5);
 }
 
 .password-symbol {
-    margin-bottom: 20px;
-
     color: var(--gold);
-
     font-size: 18px;
+    margin-bottom: 20px;
 }
 
 .eyebrow {
     color: var(--gold);
-
     font-size: 9px;
-
     letter-spacing: 4px;
 }
 
@@ -652,18 +571,15 @@ body {
         serif;
 
     font-size: 43px;
-
     font-weight: 500;
 }
 
 .password-box p {
     margin-top: 12px;
 
-    color:
-        rgba(245, 234, 216, 0.5);
+    color: rgba(245,234,216,.5);
 
     font-size: 12px;
-
     line-height: 1.8;
 }
 
@@ -675,13 +591,13 @@ body {
     width: 100%;
     height: 55px;
 
+    border:
+        1px solid rgba(213,174,103,.25);
+
     outline: none;
 
-    border:
-        1px solid rgba(214, 176, 106, 0.25);
-
     background:
-        rgba(255, 255, 255, 0.035);
+        rgba(255,255,255,.035);
 
     color: var(--cream);
 
@@ -691,51 +607,34 @@ body {
 
     letter-spacing: 6px;
 
-    transition: 0.2s ease;
+    transition: .2s ease;
 }
 
 .date-input input:focus {
     border-color: var(--gold);
 
     box-shadow:
-        0 0 25px
-        rgba(214, 176, 106, 0.1);
+        0 0 25px rgba(213,174,103,.08);
 }
 
 .validate-button {
     margin-top: 18px;
 
-    padding: 15px 32px;
+    padding: 15px 30px;
 
-    border: none;
-
-    background:
-        linear-gradient(
-            135deg,
-            var(--gold-light),
-            var(--gold)
-        );
+    background: var(--gold);
 
     color: #17110b;
 
     font-size: 10px;
-
     letter-spacing: 1.5px;
 
-    cursor: pointer;
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+    transition: .2s ease;
 }
 
 .validate-button:hover {
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 10px 25px
-        rgba(214, 176, 106, 0.12);
+    background: var(--gold-light);
+    transform: translateY(-2px);
 }
 
 .password-error {
@@ -743,318 +642,53 @@ body {
 
     margin-top: 16px;
 
-    color: #c96870;
+    color: #c86a6f;
 
     font-size: 10px;
 }
 
 
-/* ================================
-   CUT ANIMATION
-================================ */
-
-.cake.cutting .cake-left {
-    animation:
-        cutLeft
-        0.9s
-        cubic-bezier(.2, .8, .2, 1)
-        forwards;
-}
-
-.cake.cutting .cake-right {
-    animation:
-        cutRight
-        0.9s
-        cubic-bezier(.2, .8, .2, 1)
-        forwards;
-}
-
-.cake.cutting .cake-title {
-    animation:
-        titleOut
-        0.3s
-        ease
-        forwards;
-}
-
-@keyframes cutLeft {
-
-    0% {
-        transform:
-            translateX(0);
-    }
-
-    35% {
-        transform:
-            translateX(-5px);
-    }
-
-    100% {
-        transform:
-            translateX(-125px)
-            rotate(-3deg);
-    }
-}
-
-@keyframes cutRight {
-
-    0% {
-        transform:
-            translateX(0);
-    }
-
-    35% {
-        transform:
-            translateX(5px);
-    }
-
-    100% {
-        transform:
-            translateX(125px)
-            rotate(3deg);
-    }
-}
-
-@keyframes titleOut {
-
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-    }
-}
-
-
-/* ================================
-   LETTER
-================================ */
-
-.letter {
-    position: absolute;
-
-    left: 50%;
-    top: 50%;
-
-    width: 390px;
-    min-height: 300px;
-
-    transform:
-        translate(-50%, -35%)
-        scale(0.1);
-
-    opacity: 0;
-
-    z-index: 3;
-}
-
-.letter.open {
-    animation:
-        letterOpen
-        1.2s
-        cubic-bezier(.2, .8, .2, 1)
-        forwards;
-}
-
-@keyframes letterOpen {
-
-    0% {
-        opacity: 0;
-
-        transform:
-            translate(-50%, -35%)
-            scale(0.1)
-            rotateX(70deg);
-    }
-
-    45% {
-        opacity: 1;
-
-        transform:
-            translate(-50%, -50%)
-            scale(0.85)
-            rotateX(15deg);
-    }
-
-    100% {
-        opacity: 1;
-
-        transform:
-            translate(-50%, -50%)
-            scale(1)
-            rotateX(0);
-    }
-}
-
-.letter-paper {
-    position: relative;
-
-    width: 100%;
-    min-height: 100%;
-
-    padding: 35px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #fffaf0,
-            #eee0c9
-        );
-
-    color: #392a1d;
-
-    box-shadow:
-        0 25px 70px
-        rgba(0, 0, 0, 0.6);
-
-    transform-origin: top center;
-}
-
-.letter-paper::before {
-    content: "";
-
-    position: absolute;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    background:
-        repeating-linear-gradient(
-            0deg,
-            transparent,
-            transparent 27px,
-            rgba(100, 70, 40, 0.035) 28px
-        );
-}
-
-.letter-content {
-    position: relative;
-
-    z-index: 2;
-
-    text-align: center;
-}
-
-.letter-small {
-    color: #a07b46;
-
-    font-size: 8px;
-
-    letter-spacing: 4px;
-}
-
-.letter-content h2 {
-    margin-top: 10px;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 37px;
-
-    font-weight: 600;
-
-    line-height: 0.95;
-}
-
-.letter-content h2 span {
-    display: block;
-
-    color: #9a343b;
-
-    font-style: italic;
-}
-
-.letter-line {
-    width: 50px;
-    height: 1px;
-
-    margin: 17px auto;
-
-    background: #b28b51;
-}
-
-.letter-content p {
-    margin-top: 10px;
-
-    color: #665344;
-
-    font-size: 10px;
-
-    line-height: 1.65;
-}
-
-.letter-signature {
-    margin-top: 18px;
-
-    color: #806238;
-
-    font-family:
-        "Cormorant Garamond",
-        serif;
-
-    font-size: 15px;
-}
-
-.letter-signature strong {
-    display: block;
-
-    margin-top: 2px;
-
-    color: #9a343b;
-
-    font-size: 22px;
-}
-
-
-/* ================================
-   WRONG PASSWORD
-================================ */
+/* ==================================
+   WRONG SCREEN
+================================== */
 
 .wrong-screen {
     position: absolute;
-
     inset: 0;
 
     display: none;
 
     flex-direction: column;
-
     align-items: center;
     justify-content: center;
 
     text-align: center;
 
     background:
-        rgba(7, 6, 6, 0.98);
+        rgba(7,6,6,.97);
 
     z-index: 200;
 }
 
 .broken-knife-icon {
     position: relative;
-
     width: 150px;
     height: 70px;
 
     transform: rotate(-18deg);
 
     animation:
-        brokenShake
-        0.4s
-        ease;
+        brokenShake .4s ease;
 }
 
 .broken-blade {
     position: absolute;
 
-    top: 25px;
-    left: 0;
-
     width: 82px;
     height: 22px;
+
+    top: 25px;
+    left: 0;
 
     background:
         linear-gradient(
@@ -1076,14 +710,13 @@ body {
 .broken-handle {
     position: absolute;
 
-    top: 25px;
-    right: 0;
-
     width: 68px;
     height: 22px;
 
-    border-radius:
-        5px 13px 13px 5px;
+    top: 25px;
+    right: 0;
+
+    border-radius: 5px 13px 13px 5px;
 
     background:
         linear-gradient(
@@ -1093,13 +726,40 @@ body {
         );
 }
 
+@keyframes brokenShake {
+
+    0% {
+        transform: rotate(-18deg);
+    }
+
+    20% {
+        transform: rotate(-28deg) translateX(-7px);
+    }
+
+    40% {
+        transform: rotate(-10deg) translateX(7px);
+    }
+
+    60% {
+        transform: rotate(-25deg) translateX(-5px);
+    }
+
+    80% {
+        transform: rotate(-12deg) translateX(4px);
+    }
+
+    100% {
+        transform: rotate(-18deg);
+    }
+
+}
+
 .wrong-eyebrow {
     margin-top: 25px;
 
     color: #b64b51;
 
     font-size: 9px;
-
     letter-spacing: 4px;
 }
 
@@ -1111,15 +771,13 @@ body {
         serif;
 
     font-size: 58px;
-
     font-weight: 500;
 }
 
 .wrong-screen p {
     margin-top: 8px;
 
-    color:
-        rgba(245, 234, 216, 0.45);
+    color: rgba(245,234,216,.45);
 
     font-size: 11px;
 }
@@ -1129,20 +787,16 @@ body {
 
     padding: 13px 28px;
 
-    border:
-        1px solid rgba(214, 176, 106, 0.3);
-
     background: transparent;
+
+    border:
+        1px solid rgba(213,174,103,.3);
 
     color: var(--gold);
 
     font-size: 10px;
 
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        color 0.2s ease;
+    transition: .2s;
 }
 
 .wrong-screen button:hover {
@@ -1150,45 +804,257 @@ body {
     color: #17110b;
 }
 
-@keyframes brokenShake {
+
+/* ==================================
+   CUTTING ANIMATION
+================================== */
+
+.cake.cutting .cake-left {
+    animation:
+        cakeLeftCut .9s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+.cake.cutting .cake-right {
+    animation:
+        cakeRightCut .9s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+.cake.cutting .cake-title {
+    animation:
+        titleDisappear .35s
+        ease
+        forwards;
+}
+
+@keyframes cakeLeftCut {
 
     0% {
-        transform: rotate(-18deg);
+        transform: translateX(0);
     }
 
-    20% {
-        transform:
-            rotate(-28deg)
-            translateX(-7px);
-    }
-
-    40% {
-        transform:
-            rotate(-10deg)
-            translateX(7px);
-    }
-
-    60% {
-        transform:
-            rotate(-25deg)
-            translateX(-5px);
-    }
-
-    80% {
-        transform:
-            rotate(-12deg)
-            translateX(4px);
+    45% {
+        transform: translateX(-5px);
     }
 
     100% {
-        transform: rotate(-18deg);
+        transform:
+            translateX(-120px)
+            rotate(-3deg);
     }
 }
 
+@keyframes cakeRightCut {
 
-/* ================================
+    0% {
+        transform: translateX(0);
+    }
+
+    45% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform:
+            translateX(120px)
+            rotate(3deg);
+    }
+}
+
+@keyframes titleDisappear {
+
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+
+}
+
+
+/* ==================================
+   LETTRE
+================================== */
+
+.letter {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 390px;
+    height: 300px;
+
+    transform:
+        translate(-50%, -35%)
+        scale(.1);
+
+    opacity: 0;
+
+    z-index: 3;
+
+    transition: none;
+}
+
+.letter.open {
+    animation:
+        letterAppear 1.2s
+        cubic-bezier(.2,.8,.2,1)
+        forwards;
+}
+
+@keyframes letterAppear {
+
+    0% {
+        opacity: 0;
+        transform:
+            translate(-50%, -35%)
+            scale(.1)
+            rotateX(70deg);
+    }
+
+    45% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(.85)
+            rotateX(15deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotateX(0);
+    }
+
+}
+
+.letter-paper {
+    position: relative;
+
+    width: 100%;
+    min-height: 100%;
+
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffaf0,
+            #eee0c9
+        );
+
+    color: #392a1d;
+
+    box-shadow:
+        0 25px 70px rgba(0,0,0,.5);
+
+    transform-origin: top center;
+}
+
+.letter-paper::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 27px,
+            rgba(100,70,40,.035) 28px
+        );
+
+    pointer-events: none;
+}
+
+.letter-content {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
+}
+
+.letter-small {
+    font-size: 8px;
+    letter-spacing: 4px;
+
+    color: #a07b46;
+}
+
+.letter-content h2 {
+    margin-top: 10px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 37px;
+    font-weight: 600;
+
+    line-height: .95;
+}
+
+.letter-content h2 span {
+    display: block;
+
+    color: #9a343b;
+
+    font-style: italic;
+}
+
+.letter-line {
+    width: 50px;
+    height: 1px;
+
+    background: #b28b51;
+
+    margin: 17px auto;
+}
+
+.letter-content p {
+    margin-top: 10px;
+
+    font-size: 10px;
+
+    line-height: 1.65;
+
+    color: #665344;
+}
+
+.letter-signature {
+    margin-top: 17px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 15px;
+
+    color: #806238;
+}
+
+.letter-signature strong {
+    display: block;
+
+    font-size: 22px;
+
+    color: #9a343b;
+}
+
+
+/* ==================================
    RESPONSIVE
-================================ */
+================================== */
 
 @media (max-width: 800px) {
 
@@ -1209,7 +1075,7 @@ body {
     .cake {
         transform:
             translate(-50%, -42%)
-            scale(0.75);
+            scale(.75);
     }
 
     .knife-button {
@@ -1221,15 +1087,19 @@ body {
         width: 210px;
     }
 
+    .knife-button span {
+        font-size: 8px;
+    }
+
     .letter {
         width: 340px;
     }
 
     .letter-paper {
-        padding: 28px;
+        padding: 27px;
     }
-}
 
+}
 
 @media (max-width: 500px) {
 
@@ -1248,7 +1118,7 @@ body {
     .cake {
         transform:
             translate(-50%, -40%)
-            scale(0.63);
+            scale(.63);
     }
 
     .knife-button {
@@ -1257,7 +1127,7 @@ body {
     }
 
     .real-knife {
-        width: 175px;
+        width: 170px;
     }
 
     .knife-button span {
@@ -1276,11 +1146,4 @@ body {
         font-size: 9px;
     }
 
-    .password-box {
-        padding: 38px 25px;
-    }
-
-    .password-box h2 {
-        font-size: 37px;
-    }
 }
