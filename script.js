@@ -1,441 +1,229 @@
-/* =========================================
-   MAYA & AMIRA
-   Birthday Experience
-========================================= */
+/* =====================================================
+   MAYA & AMIRA — EXPÉRIENCE ANNIVERSAIRE
+   -----------------------------------------------------
+   IMPORTANT :
+   Change seulement PASSWORD ci-dessous.
+   Format : JJMM
+   Exemple : "2109" = 21 septembre.
+===================================================== */
 
+const PASSWORD = "2109";
 
-const mainScene =
-    document.getElementById("mainScene");
+const cakeScene = document.getElementById("cakeScene");
+const passwordScene = document.getElementById("passwordScene");
+const brokenScene = document.getElementById("brokenScene");
 
-const cake =
-    document.getElementById("cake");
+const cake = document.getElementById("cake");
+const knife = document.getElementById("knife");
+const hint = document.getElementById("hint");
+const letter = document.getElementById("letter");
 
-const cakeArea =
-    document.getElementById("cakeArea");
+const dateInput = document.getElementById("dateInput");
+const validate = document.getElementById("validate");
+const error = document.getElementById("error");
+const retry = document.getElementById("retry");
+const music = document.getElementById("music");
 
-const knifeButton =
-    document.getElementById("knifeButton");
-
-const bottomHint =
-    document.getElementById("bottomHint");
-
-const passwordScreen =
-    document.getElementById("passwordScreen");
-
-const passwordInput =
-    document.getElementById("passwordInput");
-
-const validateButton =
-    document.getElementById("validateButton");
-
-const passwordError =
-    document.getElementById("passwordError");
-
-const wrongScreen =
-    document.getElementById("wrongScreen");
-
-const retryButton =
-    document.getElementById("retryButton");
-
-const letter =
-    document.getElementById("letter");
-
-const music =
-    document.getElementById("birthdayMusic");
-
-
-/* =========================================
-   MOT DE PASSE
-========================================= */
-
-/*
-   POUR L'INSTANT :
-
-   DATE
-
-   Exemple :
-   Si Amira est née le 21 septembre :
-
-   const PASSWORD = "2109";
-
-   Donne-moi sa vraie date et je te le
-   remplace directement.
-*/
-
-const PASSWORD = "DATE";
-
-
-/* =========================================
-   ÉTAT
-========================================= */
-
-let knifeStarted = false;
-let passwordOpened = false;
+let started = false;
 let cutting = false;
 
+const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-/* =========================================
-   UTILITAIRE ANIMATION
-========================================= */
-
-function wait(ms) {
-    return new Promise(resolve => {
-        setTimeout(resolve, ms);
-    });
+function showScene(sceneToShow) {
+  [cakeScene, passwordScene, brokenScene].forEach(scene => {
+    const active = scene === sceneToShow;
+    scene.style.opacity = active ? "1" : "0";
+    scene.style.visibility = active ? "visible" : "hidden";
+    scene.setAttribute("aria-hidden", active ? "false" : "true");
+  });
 }
 
+async function takeKnife() {
+  if (started || cutting) return;
+  started = true;
 
-/* =========================================
-   CLIQUE SUR LE COUTEAU
-========================================= */
+  knife.style.pointerEvents = "none";
+  hint.style.opacity = "0";
 
-knifeButton.addEventListener("click", async () => {
+  /*
+    Le couteau part de sa position initiale et
+    se rapproche du gâteau. La destination est
+    calculée à partir des positions réelles à l'écran.
+  */
+  const cakeRect = cake.getBoundingClientRect();
+  const knifeRect = knife.getBoundingClientRect();
 
-    if (knifeStarted) return;
+  const targetX =
+    cakeRect.left + cakeRect.width * 0.62 -
+    (knifeRect.left + knifeRect.width * 0.5);
 
-    knifeStarted = true;
+  const targetY =
+    cakeRect.top + cakeRect.height * 0.45 -
+    (knifeRect.top + knifeRect.height * 0.5);
 
-    knifeButton.classList.add("moving");
+  knife.style.transition =
+    "transform .85s cubic-bezier(.16,.82,.2,1), opacity .3s ease";
 
-    bottomHint.style.opacity = "0";
+  knife.style.transform =
+    `translate(${targetX}px, ${targetY}px) rotate(-9deg)`;
 
+  await wait(850);
+
+  /*
+    Une fois arrivé au gâteau, on ouvre la demande
+    de date. On ne lance PAS la coupe avant validation.
+  */
+  knife.style.opacity = "0";
+
+  await wait(180);
+
+  showScene(passwordScene);
+
+  dateInput.value = "";
+  error.style.display = "none";
+
+  setTimeout(() => dateInput.focus(), 120);
+}
+
+function checkDate() {
+  if (cutting) return;
+
+  const value = dateInput.value.replace(/\D/g, "");
+
+  if (value.length === 4 && value === PASSWORD) {
+    cutCake();
+  } else {
+    showBroken();
+  }
+}
+
+async function cutCake() {
+  cutting = true;
+
+  /*
+    Retour à la scène du gâteau.
+  */
+  showScene(cakeScene);
+
+  /*
+    On remet le couteau au-dessus du gâteau.
+  */
+  knife.style.opacity = "1";
+  knife.style.pointerEvents = "none";
+  knife.style.transition = "none";
+
+  /*
+    Petit déplacement précis vers le centre.
+  */
+  const cakeRect = cake.getBoundingClientRect();
+  const knifeRect = knife.getBoundingClientRect();
+
+  const centerX =
+    cakeRect.left + cakeRect.width * 0.50 -
+    (knifeRect.left + knifeRect.width * 0.50);
+
+  const aboveY =
+    cakeRect.top + cakeRect.height * 0.15 -
+    (knifeRect.top + knifeRect.height * 0.50);
+
+  knife.style.transform =
+    `translate(${centerX}px, ${aboveY}px) rotate(-8deg)`;
+
+  await wait(450);
+
+  /*
+    Le couteau descend réellement dans le gâteau.
+  */
+  const cutY = aboveY + 105;
+
+  knife.style.transition =
+    "transform .55s cubic-bezier(.25,.8,.2,1)";
+
+  knife.style.transform =
+    `translate(${centerX}px, ${cutY}px) rotate(-8deg)`;
+
+  await wait(480);
+
+  /*
+    Le gâteau se coupe en deux.
+  */
+  cake.classList.add("is-cutting");
+
+  await wait(720);
+
+  /*
+    Le couteau sort de la scène.
+  */
+  knife.style.transition =
+    "transform .45s ease, opacity .3s ease";
+
+  knife.style.transform =
+    `translate(${centerX}px, ${cutY + 115}px) rotate(-8deg)`;
+
+  knife.style.opacity = "0";
+
+  await wait(260);
+
+  /*
+    La feuille s'ouvre derrière le gâteau.
+  */
+  letter.classList.add("open");
+  letter.setAttribute("aria-hidden", "false");
+
+  /*
+    La musique démarre après une interaction utilisateur.
+  */
+  music.volume = 0.8;
+  try {
+    await music.play();
+  } catch (e) {
     /*
-        Le couteau quitte sa position
-        et se dirige vers le gâteau.
+      Si le navigateur bloque la lecture automatique,
+      l'utilisateur pourra relancer après interaction.
     */
+  }
+}
 
-    const cakeRect =
-        cake.getBoundingClientRect();
+function showBroken() {
+  passwordScene.style.opacity = "0";
+  passwordScene.style.visibility = "hidden";
 
-    const knifeRect =
-        knifeButton.getBoundingClientRect();
+  setTimeout(() => {
+    showScene(brokenScene);
+  }, 250);
+}
 
-    const targetX =
-        cakeRect.left +
-        cakeRect.width / 2 -
-        (knifeRect.left +
-        knifeRect.width / 2);
+function resetExperience() {
+  cutting = false;
+  started = false;
 
-    const targetY =
-        cakeRect.top +
-        cakeRect.height * .45 -
-        (knifeRect.top +
-        knifeRect.height / 2);
+  cake.classList.remove("is-cutting");
+  letter.classList.remove("open");
+  letter.setAttribute("aria-hidden", "true");
 
+  knife.style.transition = "none";
+  knife.style.opacity = "1";
+  knife.style.pointerEvents = "auto";
+  knife.style.transform = "translateY(-45%) rotate(-7deg)";
 
-    knifeButton.style.transform =
-        `translate(${targetX}px, ${targetY}px) rotate(-7deg)`;
+  hint.style.opacity = "1";
 
+  dateInput.value = "";
+  error.style.display = "none";
 
-    await wait(850);
+  showScene(cakeScene);
+}
 
+knife.addEventListener("click", takeKnife);
+validate.addEventListener("click", checkDate);
 
-    /*
-        Le couteau est maintenant
-        arrivé devant le gâteau.
-    */
-
-    knifeButton.style.opacity = "0";
-
-    await wait(180);
-
-
-    /*
-        On affiche le mot de passe.
-    */
-
-    mainScene.style.transition =
-        "opacity .4s ease";
-
-    mainScene.style.opacity = "0";
-
-    await wait(400);
-
-    mainScene.style.display = "none";
-
-    passwordScreen.style.display = "flex";
-
-    requestAnimationFrame(() => {
-
-        passwordScreen.style.transition =
-            "opacity .45s ease";
-
-        passwordScreen.style.opacity = "1";
-
-    });
-
-    passwordOpened = true;
-
-    passwordInput.focus();
-
+dateInput.addEventListener("input", () => {
+  dateInput.value = dateInput.value.replace(/\D/g, "").slice(0, 4);
+  error.style.display = "none";
 });
 
-
-/* =========================================
-   VALIDATION
-========================================= */
-
-validateButton.addEventListener(
-    "click",
-    checkPassword
-);
-
-
-passwordInput.addEventListener(
-    "keydown",
-    event => {
-
-        if (event.key === "Enter") {
-            checkPassword();
-        }
-
-    }
-);
-
-
-function checkPassword() {
-
-    if (!passwordOpened || cutting) {
-        return;
-    }
-
-    const entered =
-        passwordInput.value
-            .trim()
-            .replace(/\s/g, "");
-
-    if (entered === PASSWORD) {
-
-        correctPassword();
-
-    } else {
-
-        wrongPassword();
-
-    }
-
-}
-
-
-/* =========================================
-   BON MOT DE PASSE
-========================================= */
-
-async function correctPassword() {
-
-    cutting = true;
-
-    passwordScreen.style.opacity = "0";
-
-    await wait(450);
-
-    passwordScreen.style.display = "none";
-
-    mainScene.style.display = "flex";
-    mainScene.style.opacity = "1";
-
-    /*
-        Le gâteau revient.
-    */
-
-    cakeArea.classList.add("ready-to-cut");
-
-    /*
-        On fait apparaître le couteau
-        directement au-dessus du gâteau.
-    */
-
-    knifeButton.style.opacity = "1";
-
-    knifeButton.style.transition =
-        "none";
-
-    knifeButton.style.transform =
-        "translate(-50px, -10px) rotate(-8deg)";
-
-    /*
-        Petite pause dramatique.
-    */
-
-    await wait(500);
-
-
-    /*
-        LE COUTEAU DESCEND
-        ET COUPE LE GÂTEAU.
-    */
-
-    knifeButton.style.transition =
-        "transform .65s cubic-bezier(.2,.8,.2,1)";
-
-    knifeButton.style.transform =
-        "translate(-50px, 85px) rotate(-8deg)";
-
-
-    await wait(500);
-
-
-    /*
-        Coupe du gâteau.
-    */
-
-    cake.classList.add("cutting");
-
-
-    await wait(750);
-
-
-    /*
-        Le couteau quitte la scène.
-    */
-
-    knifeButton.style.transition =
-        "transform .45s ease, opacity .35s ease";
-
-    knifeButton.style.transform =
-        "translate(-50px, 170px) rotate(-8deg)";
-
-    knifeButton.style.opacity = "0";
-
-
-    await wait(250);
-
-
-    /*
-        La lettre apparaît.
-    */
-
-    letter.classList.add("open");
-
-
-    await wait(1200);
-
-
-    /*
-        Musique.
-    */
-
-    music.volume = 0.8;
-
-    music.play().catch(() => {
-        /*
-            Certains navigateurs peuvent bloquer
-            l'autoplay. Le clic initial de l'utilisateur
-            permet normalement la lecture.
-        */
-    });
-
-}
-
-
-/* =========================================
-   MAUVAIS MOT DE PASSE
-========================================= */
-
-async function wrongPassword() {
-
-    passwordError.style.display = "block";
-
-    passwordInput.animate(
-        [
-            {
-                transform: "translateX(0)"
-            },
-            {
-                transform: "translateX(-9px)"
-            },
-            {
-                transform: "translateX(9px)"
-            },
-            {
-                transform: "translateX(-6px)"
-            },
-            {
-                transform: "translateX(6px)"
-            },
-            {
-                transform: "translateX(0)"
-            }
-        ],
-        {
-            duration: 320,
-            easing: "ease-out"
-        }
-    );
-
-
-    await wait(550);
-
-
-    /*
-        On cache le mot de passe.
-    */
-
-    passwordScreen.style.opacity = "0";
-
-    await wait(350);
-
-    passwordScreen.style.display = "none";
-
-    /*
-        Écran du couteau cassé.
-    */
-
-    wrongScreen.style.display = "flex";
-
-    wrongScreen.animate(
-        [
-            {
-                opacity: 0
-            },
-            {
-                opacity: 1
-            }
-        ],
-        {
-            duration: 350,
-            fill: "forwards"
-        }
-    );
-
-}
-
-
-/* =========================================
-   RÉESSAYER
-========================================= */
-
-retryButton.addEventListener(
-    "click",
-    () => {
-
-        wrongScreen.style.display = "none";
-
-        passwordScreen.style.display = "flex";
-
-        passwordScreen.style.opacity = "1";
-
-        passwordInput.value = "";
-
-        passwordError.style.display = "none";
-
-        passwordInput.focus();
-
-    }
-);
-
-
-/* =========================================
-   EMPÊCHER LES ESPACES
-========================================= */
-
-passwordInput.addEventListener(
-    "input",
-    () => {
-
-        passwordInput.value =
-            passwordInput.value
-                .replace(/\s/g, "");
-
-    }
-);
+dateInput.addEventListener("keydown", event => {
+  if (event.key === "Enter") checkDate();
+});
+
+retry.addEventListener("click", resetExperience);

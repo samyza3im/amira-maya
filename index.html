@@ -1,443 +1,175 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Maya & Amira</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#080706">
+  <title>Maya & Amira — Joyeux anniversaire</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+  <div class="bg" aria-hidden="true">
+    <div class="glow glow-a"></div>
+    <div class="glow glow-b"></div>
+    <div class="noise"></div>
+  </div>
 
-<div class="background">
-    <div class="light light-1"></div>
-    <div class="light light-2"></div>
-    <div class="grain"></div>
-</div>
+  <main id="app">
 
-<main class="experience">
+    <!-- SCÈNE DU GÂTEAU -->
+    <section id="cakeScene" class="scene scene-active">
+      <div class="intro">
+        <div class="overline">UNE PETITE SURPRISE</div>
+        <h1>Maya <em>&amp;</em> Amira</h1>
+        <p>Un petit moment rien que pour toi.</p>
+      </div>
 
-    <!-- =========================
-         SCENE PRINCIPALE
-    ========================== -->
+      <div class="stage">
+        <div class="ground-shadow"></div>
 
-    <section class="main-scene" id="mainScene">
+        <!-- Lettre derrière le gâteau -->
+        <div id="letter" class="letter" aria-hidden="true">
+          <div class="letter-paper">
+            <div class="letter-inner">
+              <div class="letter-label">POUR AMIRA</div>
+              <h2>Joyeux anniversaire</h2>
+              <div class="letter-name">Amira</div>
+              <div class="letter-rule"></div>
 
-        <div class="intro-text">
-            <span>UNE PETITE SURPRISE</span>
+              <p>
+                Aujourd'hui est une journée spéciale, alors prends le temps
+                de profiter de chaque petit bonheur qui vient à toi.
+              </p>
+              <p>
+                Je te souhaite une nouvelle année remplie de beaux souvenirs,
+                de sourires, de réussite et de moments que tu n'oublieras pas.
+              </p>
+              <p>
+                Que tout ce que tu souhaites trouve doucement son chemin
+                jusqu'à toi.
+              </p>
 
-            <h1>
-                Maya <i>&</i> Amira
-            </h1>
-
-            <p>
-                Un moment spécial se cache ici...
-            </p>
-        </div>
-
-
-        <!-- =========================
-             GÂTEAU
-        ========================== -->
-
-        <div class="cake-area" id="cakeArea">
-
-            <div class="cake-shadow"></div>
-
-            <div class="cake" id="cake">
-
-                <!-- Partie gauche -->
-                <div class="cake-half cake-left">
-
-                    <div class="cake-top"></div>
-
-                    <div class="icing icing-top"></div>
-
-                    <div class="cake-body">
-                        <div class="cake-decoration"></div>
-                        <div class="cake-decoration"></div>
-                        <div class="cake-decoration"></div>
-                    </div>
-
-                    <div class="cake-bottom"></div>
-
-                </div>
-
-
-                <!-- Partie droite -->
-                <div class="cake-half cake-right">
-
-                    <div class="cake-top"></div>
-
-                    <div class="icing icing-top"></div>
-
-                    <div class="cake-body">
-                        <div class="cake-decoration"></div>
-                        <div class="cake-decoration"></div>
-                        <div class="cake-decoration"></div>
-                    </div>
-
-                    <div class="cake-bottom"></div>
-
-                </div>
-
-
-                <!-- Texte sur le gâteau -->
-                <div class="cake-title">
-                    <span>Maya</span>
-                    <small>&</small>
-                    <span>Amira</span>
-                </div>
-
-
-                <!-- Bougies -->
-                <div class="candles">
-
-                    <div class="candle">
-                        <div class="flame"></div>
-                    </div>
-
-                    <div class="candle middle">
-                        <div class="flame"></div>
-                    </div>
-
-                    <div class="candle">
-                        <div class="flame"></div>
-                    </div>
-
-                </div>
-
+              <div class="signature">
+                Avec beaucoup d'affection
+                <strong>Maya &amp; Amira</strong>
+              </div>
             </div>
-
-
-            <!-- =========================
-                 LETTRE DERRIÈRE LE GÂTEAU
-            ========================== -->
-
-            <div class="letter" id="letter">
-
-                <div class="letter-paper">
-
-                    <div class="letter-fold"></div>
-
-                    <div class="letter-content">
-
-                        <div class="letter-small">
-                            POUR TOI
-                        </div>
-
-                        <h2>
-                            Joyeux anniversaire
-                            <span>Amira</span>
-                        </h2>
-
-                        <div class="letter-line"></div>
-
-                        <p>
-                            Aujourd'hui est une journée un peu
-                            plus spéciale que les autres,
-                            parce qu'elle célèbre une personne
-                            qui mérite beaucoup de bonheur.
-                        </p>
-
-                        <p>
-                            Que cette nouvelle année de ta vie
-                            soit remplie de beaux souvenirs,
-                            de sourires, de réussite et de
-                            moments que tu garderas longtemps.
-                        </p>
-
-                        <p>
-                            Profite de chaque instant,
-                            amuse-toi et surtout,
-                            reste toujours la personne
-                            que tu es.
-                        </p>
-
-                        <div class="letter-signature">
-                            Avec beaucoup d'amour
-                            <strong>Maya & Amira</strong>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-            <!-- =========================
-                 COUTEAU RÉALISTE
-            ========================== -->
-
-            <button class="knife-button" id="knifeButton">
-
-                <svg
-                    class="real-knife"
-                    viewBox="0 0 320 120"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-
-                    <defs>
-
-                        <linearGradient
-                            id="steel"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
-                            <stop offset="0%" stop-color="#ffffff"/>
-                            <stop offset="25%" stop-color="#aeb4b8"/>
-                            <stop offset="48%" stop-color="#f8f8f8"/>
-                            <stop offset="72%" stop-color="#777d81"/>
-                            <stop offset="100%" stop-color="#e8e8e8"/>
-                        </linearGradient>
-
-                        <linearGradient
-                            id="handle"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="0"
-                        >
-                            <stop offset="0%" stop-color="#17120f"/>
-                            <stop offset="50%" stop-color="#514239"/>
-                            <stop offset="100%" stop-color="#16110e"/>
-                        </linearGradient>
-
-                        <linearGradient
-                            id="gold"
-                            x1="0"
-                            y1="0"
-                            x2="1"
-                            y2="1"
-                        >
-                            <stop offset="0%" stop-color="#fff0b0"/>
-                            <stop offset="45%" stop-color="#b9862d"/>
-                            <stop offset="100%" stop-color="#f1cf73"/>
-                        </linearGradient>
-
-                        <filter id="knifeShadow">
-                            <feDropShadow
-                                dx="0"
-                                dy="7"
-                                stdDeviation="5"
-                                flood-opacity=".5"
-                            />
-                        </filter>
-
-                    </defs>
-
-
-                    <!-- Lame -->
-                    <path
-                        d="M15 31
-                           C75 25 145 23 205 30
-                           L205 62
-                           C145 72 75 83 15 72
-                           C7 60 7 44 15 31Z"
-                        fill="url(#steel)"
-                        filter="url(#knifeShadow)"
-                    />
-
-                    <!-- Reflet -->
-                    <path
-                        d="M25 37
-                           C75 32 130 31 178 35
-                           L178 42
-                           C125 38 75 42 28 48Z"
-                        fill="rgba(255,255,255,.7)"
-                    />
-
-                    <!-- Tranchant -->
-                    <path
-                        d="M15 72
-                           C75 83 145 72 205 62"
-                        fill="none"
-                        stroke="#555b60"
-                        stroke-width="2"
-                    />
-
-                    <!-- Mitre -->
-                    <rect
-                        x="199"
-                        y="28"
-                        width="22"
-                        height="37"
-                        rx="5"
-                        fill="url(#gold)"
-                    />
-
-                    <!-- Manche -->
-                    <rect
-                        x="215"
-                        y="30"
-                        width="92"
-                        height="33"
-                        rx="15"
-                        fill="url(#handle)"
-                        filter="url(#knifeShadow)"
-                    />
-
-                    <!-- Anneau doré -->
-                    <rect
-                        x="214"
-                        y="28"
-                        width="12"
-                        height="37"
-                        rx="4"
-                        fill="url(#gold)"
-                    />
-
-                    <!-- Détails manche -->
-                    <path
-                        d="M238 34 V59
-                           M250 33 V60
-                           M262 33 V60"
-                        stroke="rgba(255,255,255,.12)"
-                        stroke-width="2"
-                    />
-
-                    <!-- Bout du manche -->
-                    <ellipse
-                        cx="302"
-                        cy="46.5"
-                        rx="10"
-                        ry="16"
-                        fill="#211915"
-                    />
-
-                </svg>
-
-                <span>
-                    Prendre le couteau
-                </span>
-
-            </button>
-
+          </div>
         </div>
 
+        <!-- Gâteau -->
+        <div id="cake" class="cake" aria-label="Gâteau Maya et Amira">
+          <div class="cake-half cake-left">
+            <div class="cake-top"></div>
+            <div class="icing"></div>
+            <div class="cake-body"></div>
+            <div class="cake-bottom"></div>
+            <span class="decoration d1"></span>
+            <span class="decoration d2"></span>
+            <span class="decoration d3"></span>
+          </div>
 
-        <div class="bottom-hint" id="bottomHint">
-            Appuie sur le couteau pour commencer
+          <div class="cake-half cake-right">
+            <div class="cake-top"></div>
+            <div class="icing"></div>
+            <div class="cake-body"></div>
+            <div class="cake-bottom"></div>
+            <span class="decoration d4"></span>
+            <span class="decoration d5"></span>
+            <span class="decoration d6"></span>
+          </div>
+
+          <div class="cake-writing">
+            <span>Maya</span>
+            <b>&amp;</b>
+            <span>Amira</span>
+          </div>
+
+          <div class="candles">
+            <div class="candle"><i></i></div>
+            <div class="candle candle-center"><i></i></div>
+            <div class="candle"><i></i></div>
+          </div>
         </div>
 
-    </section>
+        <!-- Couteau -->
+        <button id="knife" class="knife" type="button" aria-label="Prendre le couteau">
+          <svg viewBox="0 0 360 130" role="img" aria-hidden="true">
+            <defs>
+              <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#ffffff"/>
+                <stop offset=".22" stop-color="#b9bec1"/>
+                <stop offset=".46" stop-color="#ffffff"/>
+                <stop offset=".72" stop-color="#73797d"/>
+                <stop offset="1" stop-color="#e9e9e9"/>
+              </linearGradient>
+              <linearGradient id="handle" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0" stop-color="#120f0d"/>
+                <stop offset=".48" stop-color="#4c3b31"/>
+                <stop offset="1" stop-color="#15110e"/>
+              </linearGradient>
+              <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#f9e6a9"/>
+                <stop offset=".5" stop-color="#a97825"/>
+                <stop offset="1" stop-color="#f1cc70"/>
+              </linearGradient>
+            </defs>
 
-
-    <!-- =========================
-         MOT DE PASSE
-    ========================== -->
-
-    <section class="password-screen" id="passwordScreen">
-
-        <div class="password-box">
-
-            <div class="password-symbol">✦</div>
-
-            <div class="eyebrow">
-                LA SURPRISE EST PRÊTE
-            </div>
-
-            <h2>
-                Une dernière chose...
-            </h2>
-
-            <p>
-                Entre la date d'anniversaire d'Amira
-                pour découvrir la surprise.
-            </p>
-
-            <div class="date-input">
-
-                <input
-                    id="passwordInput"
-                    type="text"
-                    inputmode="numeric"
-                    maxlength="8"
-                    placeholder="JJMM"
-                    autocomplete="off"
-                >
-
-            </div>
-
-            <button
-                class="validate-button"
-                id="validateButton"
-            >
-                Continuer
-            </button>
-
-            <div
-                class="password-error"
-                id="passwordError"
-            >
-                Ce n'est pas la bonne date...
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- =========================
-         MAUVAIS MOT DE PASSE
-    ========================== -->
-
-    <section
-        class="wrong-screen"
-        id="wrongScreen"
-    >
-
-        <div class="broken-knife-icon">
-
-            <div class="broken-blade"></div>
-            <div class="broken-handle"></div>
-
-        </div>
-
-        <div class="wrong-eyebrow">
-            OUPS
-        </div>
-
-        <h2>
-            Ce n'était pas ça...
-        </h2>
-
-        <p>
-            Le gâteau n'a pas apprécié cette tentative.
-        </p>
-
-        <button id="retryButton">
-            Réessayer
+            <path class="svg-blade"
+              d="M15 34 C86 25 154 26 224 34 L224 69 C151 79 84 88 15 75 C7 63 7 46 15 34Z"
+              fill="url(#blade)"/>
+            <path d="M25 40 C80 33 139 33 191 38 L191 44 C132 40 79 43 27 51Z"
+              fill="rgba(255,255,255,.7)"/>
+            <path d="M15 75 C84 88 151 79 224 69" fill="none" stroke="#555b60" stroke-width="2"/>
+            <rect x="218" y="31" width="22" height="41" rx="5" fill="url(#metal)"/>
+            <rect x="235" y="33" width="103" height="37" rx="17" fill="url(#handle)"/>
+            <rect x="232" y="31" width="12" height="41" rx="4" fill="url(#metal)"/>
+            <path d="M259 37V66 M272 36V67 M285 36V67" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+            <ellipse cx="334" cy="51.5" rx="12" ry="18" fill="#211914"/>
+          </svg>
+          <span>TOUCHE LE COUTEAU</span>
         </button>
+      </div>
 
+      <div id="hint" class="hint">Le couteau ouvre la surprise</div>
     </section>
 
-</main>
+    <!-- MOT DE PASSE -->
+    <section id="passwordScene" class="scene password-scene" aria-hidden="true">
+      <div class="password-card">
+        <div class="tiny">LA SURPRISE EST PRÊTE</div>
+        <h2>Une dernière chose...</h2>
+        <p>Entre la date d'anniversaire d'Amira au format <b>JJMM</b>.</p>
 
+        <input id="dateInput" type="text" inputmode="numeric"
+               maxlength="4" placeholder="JJMM" autocomplete="off"
+               aria-label="Date d'anniversaire">
 
-<!-- =========================
-     MUSIQUE
-========================== -->
+        <button id="validate" type="button">DÉCOUVRIR</button>
+        <div id="error" class="error">Ce n'est pas la bonne date.</div>
+      </div>
+    </section>
 
-<audio
-    id="birthdayMusic"
-    src="music.mp3"
-    preload="auto"
->
-</audio>
+    <!-- ERREUR -->
+    <section id="brokenScene" class="scene broken-scene" aria-hidden="true">
+      <div class="broken-knife">
+        <div class="broken-blade"></div>
+        <div class="broken-handle"></div>
+      </div>
+      <div class="tiny danger">OUPS</div>
+      <h2>Le gâteau n'a pas apprécié...</h2>
+      <p>Essaie encore une fois.</p>
+      <button id="retry" type="button">RÉESSAYER</button>
+    </section>
+  </main>
 
+  <!-- Mets ton fichier music.mp3 à côté de index.html -->
+  <audio id="music" src="music.mp3" preload="auto"></audio>
 
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
