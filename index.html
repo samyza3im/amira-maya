@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maya & Amira — Joyeux Anniversaire</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background">
+        <div class="glow glow-one"></div>
+        <div class="glow glow-two"></div>
+        <div class="particles"></div>
+    </div>
+
+    <main class="scene">
+
+        <!-- INTRO -->
+        <section class="birthday-scene" id="birthdayScene">
+
+            <div class="top-text">
+                <span>UNE PETITE SURPRISE</span>
+            </div>
+
+            <h1 class="names">Maya <span>&</span> Amira</h1>
+
+            <p class="subtitle">
+                Un anniversaire mérite un moment inoubliable.
+            </p>
+
+            <!-- CAKE -->
+            <div class="cake-wrapper" id="cake">
+
+                <div class="cake-glow"></div>
+
+                <div class="candles">
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+
+                    <div class="candle">
+                        <div class="flame"></div>
+                    </div>
+                </div>
+
+                <div class="cake-top">
+                    <div class="icing"></div>
+
+                    <div class="cake-name">
+                        Maya <span>&</span> Amira
+                    </div>
+                </div>
+
+                <div class="cake-middle"></div>
+                <div class="cake-bottom"></div>
+
+                <div class="cake-decoration decoration-one"></div>
+                <div class="cake-decoration decoration-two"></div>
+                <div class="cake-decoration decoration-three"></div>
+
+            </div>
+
+            <!-- KNIFE -->
+            <button class="knife-button" id="knifeButton" aria-label="Prendre le couteau">
+                <div class="knife">
+                    <div class="knife-blade"></div>
+                    <div class="knife-handle"></div>
+                </div>
+
+                <span>Prendre le couteau</span>
+            </button>
+
+            <div class="instruction" id="instruction">
+                <span>✦</span>
+                Appuie sur le couteau pour commencer
+                <span>✦</span>
+            </div>
+
+        </section>
+
+
+        <!-- PASSWORD -->
+        <section class="password-screen" id="passwordScreen">
+
+            <div class="password-card">
+
+                <div class="lock-symbol">✦</div>
+
+                <p class="small-title">
+                    LA SURPRISE EST PRÊTE
+                </p>
+
+                <h2>
+                    Quel est le mot de passe ?
+                </h2>
+
+                <p class="password-description">
+                    Entre la date d'anniversaire d'Amira pour continuer.
+                </p>
+
+                <div class="input-container">
+                    <input
+                        type="text"
+                        id="passwordInput"
+                        placeholder="JJMM"
+                        maxlength="8"
+                        autocomplete="off"
+                    >
+                </div>
+
+                <button class="cut-button" id="cutButton">
+                    Couper le gâteau
+                </button>
+
+                <p class="error-message" id="errorMessage">
+                    Ce n'est pas la bonne date...
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- SUCCESS -->
+        <section class="success-screen" id="successScreen">
+
+            <div class="success-cake" id="successCake">
+
+                <div class="success-half left-half"></div>
+                <div class="success-half right-half"></div>
+
+            </div>
+
+            <div class="success-content">
+
+                <p class="small-title">
+                    POUR UNE PERSONNE TRÈS SPÉCIALE
+                </p>
+
+                <h2>
+                    Joyeux anniversaire,
+                    <span>Amira</span>
+                </h2>
+
+                <div class="gold-line"></div>
+
+                <p class="birthday-message">
+                    Aujourd'hui est une journée spéciale,
+                    parce qu'une personne spéciale mérite
+                    une journée extraordinaire.
+                    <br><br>
+                    Maya et toi partagez un joli souvenir,
+                    mais aujourd'hui, c'est ton moment.
+                    Profite de chaque seconde, souris,
+                    et laisse cette nouvelle année de ta vie
+                    commencer avec de beaux souvenirs.
+                    <br><br>
+                    Que cette journée t'apporte beaucoup
+                    de bonheur, de belles surprises et
+                    des moments que tu n'oublieras jamais.
+                </p>
+
+                <div class="signature">
+                    Avec beaucoup d'amour
+                    <strong>Maya & Amira</strong>
+                </div>
+
+                <button class="music-button" id="musicButton">
+                    Écouter la musique
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- WRONG -->
+        <div class="wrong-screen" id="wrongScreen">
+
+            <div class="broken-knife">
+                <div class="broken-blade"></div>
+                <div class="broken-handle"></div>
+            </div>
+
+            <h2>Oups...</h2>
+
+            <p>
+                Ce n'était pas la bonne date.
+                <br>
+                Le gâteau n'a pas vraiment apprécié cette tentative.
+            </p>
+
+            <button id="retryButton">
+                Réessayer
+            </button>
+
+        </div>
+
+    </main>
+
+    <!-- MUSIC -->
+    <audio id="birthdayMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
