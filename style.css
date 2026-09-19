@@ -5,601 +5,1282 @@
 }
 
 :root {
-    --bg: #080707;
-    --cream: #f5ead9;
-    --gold: #d7b06a;
-    --gold-light: #f4d58f;
-    --dark-gold: #8d6833;
-    --red: #7d1820;
+    --bg: #070606;
+    --cream: #f5ead8;
+    --gold: #d6b06a;
+    --gold-light: #f2d48f;
+    --red: #741b24;
+    --red-light: #a83b43;
 }
 
 html,
 body {
     width: 100%;
     height: 100%;
-    overflow: hidden;
 }
 
 body {
+    overflow: hidden;
     background: var(--bg);
     color: var(--cream);
     font-family: "Montserrat", sans-serif;
 }
 
-button,
-input {
-    font-family: inherit;
-}
 
-button {
-    border: none;
-    cursor: pointer;
-}
+/* ================================
+   BACKGROUND
+================================ */
 
 .background {
     position: fixed;
     inset: 0;
     overflow: hidden;
-    pointer-events: none;
     background:
-        radial-gradient(circle at 50% 40%, rgba(130, 91, 39, .12), transparent 32%),
-        radial-gradient(circle at 20% 80%, rgba(125, 24, 32, .08), transparent 30%),
-        #080707;
+        radial-gradient(
+            circle at 50% 42%,
+            rgba(190, 145, 65, 0.14),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 15% 90%,
+            rgba(120, 25, 34, 0.12),
+            transparent 30%
+        ),
+        #070606;
 }
 
-.glow {
+.light {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
-    opacity: .25;
+    filter: blur(120px);
+    pointer-events: none;
 }
 
-.glow-one {
-    width: 350px;
-    height: 350px;
-    background: #a77b35;
-    top: 10%;
-    left: 30%;
+.light-1 {
+    width: 380px;
+    height: 380px;
+    top: 5%;
+    left: 38%;
+    background: rgba(195, 150, 70, 0.15);
 }
 
-.glow-two {
-    width: 280px;
-    height: 280px;
-    background: #75151d;
-    bottom: -100px;
+.light-2 {
+    width: 320px;
+    height: 320px;
     right: 5%;
+    bottom: -140px;
+    background: rgba(120, 25, 34, 0.12);
 }
 
-.scene {
+.grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.035;
+    pointer-events: none;
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+
+/* ================================
+   EXPERIENCE
+================================ */
+
+.experience {
     position: relative;
     width: 100%;
     height: 100%;
 }
 
-.birthday-scene {
+
+/* ================================
+   MAIN SCENE
+================================ */
+
+.main-scene {
     position: absolute;
     inset: 0;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transition: opacity .5s ease, transform .5s ease;
 }
 
-.top-text {
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: rgba(245, 234, 217, .5);
-    margin-bottom: 12px;
-}
 
-.names {
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(52px, 8vw, 100px);
-    font-weight: 500;
-    letter-spacing: 2px;
-    line-height: .9;
+/* ================================
+   INTRO
+================================ */
+
+.intro-text {
+    position: absolute;
+    top: 7%;
+    z-index: 50;
+
     text-align: center;
 }
 
-.names span {
+.intro-text > span {
+    color: rgba(245, 234, 216, 0.42);
+    font-size: 9px;
+    letter-spacing: 5px;
+}
+
+.intro-text h1 {
+    margin-top: 15px;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(55px, 8vw, 95px);
+    font-weight: 500;
+
+    line-height: 0.8;
+}
+
+.intro-text h1 i {
     color: var(--gold);
     font-style: italic;
 }
 
-.subtitle {
-    margin-top: 18px;
-    color: rgba(245, 234, 217, .55);
-    font-size: 12px;
+.intro-text p {
+    margin-top: 20px;
+
+    color: rgba(245, 234, 216, 0.45);
+
+    font-size: 11px;
     letter-spacing: 1.5px;
 }
 
-/* CAKE */
 
-.cake-wrapper {
+/* ================================
+   CAKE AREA
+================================ */
+
+.cake-area {
     position: relative;
-    width: 300px;
-    height: 250px;
-    margin-top: 25px;
-    transform: scale(.85);
-    transition: transform .5s ease;
+
+    width: 760px;
+    height: 500px;
+
+    margin-top: 100px;
 }
 
-.cake-glow {
-    position: absolute;
-    width: 230px;
-    height: 70px;
-    left: 35px;
-    bottom: 30px;
-    background: rgba(215, 176, 106, .16);
-    filter: blur(35px);
-}
 
-.cake-top,
-.cake-middle,
-.cake-bottom {
+/* ================================
+   CAKE SHADOW
+================================ */
+
+.cake-shadow {
     position: absolute;
+
+    width: 310px;
+    height: 48px;
+
     left: 50%;
+    bottom: 65px;
+
     transform: translateX(-50%);
+
     border-radius: 50%;
-}
 
-.cake-top {
-    width: 220px;
-    height: 65px;
-    top: 70px;
-    z-index: 4;
-    background: linear-gradient(145deg, #ead6b5, #b89255);
-    box-shadow:
-        0 0 25px rgba(215, 176, 106, .2),
-        inset 0 -8px 12px rgba(80, 48, 20, .3);
-}
+    background: rgba(0, 0, 0, 0.7);
 
-.icing {
-    position: absolute;
-    left: 10px;
-    right: 10px;
-    bottom: -8px;
-    height: 25px;
-    background: #f3e5cf;
-    border-radius: 0 0 50% 50%;
-}
+    filter: blur(20px);
 
-.cake-name {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 7px;
-    z-index: 5;
-    color: #4d351c;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 23px;
-    font-weight: 600;
-}
-
-.cake-name span {
-    color: #8d6833;
-    font-style: italic;
-}
-
-.cake-middle {
-    width: 215px;
-    height: 90px;
-    top: 95px;
-    background: linear-gradient(90deg, #762029, #a13a40, #762029);
-    z-index: 2;
-}
-
-.cake-bottom {
-    width: 245px;
-    height: 75px;
-    top: 150px;
-    background: linear-gradient(90deg, #562027, #8b3036, #562027);
     z-index: 1;
 }
 
+
+/* ================================
+   CAKE
+================================ */
+
+.cake {
+    position: absolute;
+
+    width: 310px;
+    height: 280px;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%, -42%);
+
+    z-index: 10;
+}
+
+
+/* ================================
+   CAKE HALVES
+================================ */
+
+.cake-half {
+    position: absolute;
+
+    top: 60px;
+
+    width: 155px;
+    height: 190px;
+
+    overflow: hidden;
+
+    transition:
+        transform 0.8s
+        cubic-bezier(.2, .8, .2, 1);
+}
+
+.cake-left {
+    left: 0;
+
+    transform-origin: right center;
+}
+
+.cake-right {
+    right: 0;
+
+    transform-origin: left center;
+}
+
+
+/* ================================
+   CAKE TOP
+================================ */
+
+.cake-top {
+    position: absolute;
+
+    top: 0;
+
+    width: 310px;
+    height: 82px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse at 50% 25%,
+            #fff0d8 0%,
+            #d8b986 45%,
+            #906a37 100%
+        );
+
+    box-shadow:
+        inset 0 -8px 14px rgba(70, 40, 15, 0.3);
+}
+
+.cake-left .cake-top {
+    right: 0;
+}
+
+.cake-right .cake-top {
+    left: 0;
+}
+
+
+/* ================================
+   ICING
+================================ */
+
+.icing-top {
+    position: absolute;
+
+    top: 48px;
+
+    width: 310px;
+    height: 46px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fff0dc,
+            #d7b788
+        );
+
+    border-radius: 50%;
+}
+
+.cake-left .icing-top {
+    right: 0;
+}
+
+.cake-right .icing-top {
+    left: 0;
+}
+
+
+/* ================================
+   CAKE BODY
+================================ */
+
+.cake-body {
+    position: absolute;
+
+    top: 38px;
+
+    width: 310px;
+    height: 120px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #64151d,
+            #a13b43,
+            #771d26
+        );
+}
+
+.cake-left .cake-body {
+    right: 0;
+}
+
+.cake-right .cake-body {
+    left: 0;
+}
+
+
+/* ================================
+   CAKE BOTTOM
+================================ */
+
+.cake-bottom {
+    position: absolute;
+
+    top: 135px;
+
+    width: 310px;
+    height: 75px;
+
+    border-radius:
+        0 0 50% 50%;
+
+    background:
+        linear-gradient(
+            90deg,
+            #4d1218,
+            #79262e,
+            #51151b
+        );
+}
+
+.cake-left .cake-bottom {
+    right: 0;
+}
+
+.cake-right .cake-bottom {
+    left: 0;
+}
+
+
+/* ================================
+   DECORATIONS
+================================ */
+
 .cake-decoration {
     position: absolute;
-    width: 12px;
-    height: 12px;
+
+    width: 9px;
+    height: 9px;
+
     border-radius: 50%;
+
     background: var(--gold-light);
-    z-index: 5;
-    box-shadow: 0 0 10px rgba(244, 213, 143, .5);
+
+    box-shadow:
+        0 0 12px rgba(242, 212, 143, 0.5);
 }
 
-.decoration-one {
-    left: 65px;
-    top: 125px;
+.cake-decoration:nth-child(1) {
+    top: 45px;
+    left: 75px;
 }
 
-.decoration-two {
-    right: 65px;
-    top: 135px;
+.cake-decoration:nth-child(2) {
+    top: 70px;
+    left: 135px;
 }
 
-.decoration-three {
-    left: 110px;
-    top: 170px;
+.cake-decoration:nth-child(3) {
+    top: 35px;
+    left: 205px;
 }
 
-/* CANDLES */
+
+/* ================================
+   CAKE NAME
+================================ */
+
+.cake-title {
+    position: absolute;
+
+    left: 50%;
+    top: 105px;
+
+    transform: translateX(-50%);
+
+    z-index: 40;
+
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+
+    color: #49331c;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 24px;
+    font-weight: 600;
+
+    transition:
+        opacity 0.25s ease;
+}
+
+.cake-title small {
+    color: #8c6733;
+
+    font-size: 18px;
+
+    font-style: italic;
+}
+
+
+/* ================================
+   CANDLES
+================================ */
 
 .candles {
     position: absolute;
-    top: 25px;
+
     left: 50%;
+    top: 10px;
+
     transform: translateX(-50%);
+
     display: flex;
-    gap: 35px;
-    z-index: 10;
+
+    gap: 42px;
+
+    z-index: 50;
 }
 
 .candle {
     position: relative;
-    width: 10px;
-    height: 50px;
-    background: linear-gradient(90deg, #c6a76b, #f4d58f, #b18849);
+
+    width: 9px;
+    height: 55px;
+
     border-radius: 4px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #a47635,
+            #f4d790,
+            #b8873c
+        );
 }
 
 .flame {
     position: absolute;
+
     width: 12px;
-    height: 19px;
+    height: 18px;
+
     left: -1px;
     top: -18px;
-    background: #f4b95c;
-    border-radius: 60% 40% 60% 40%;
+
+    border-radius:
+        60% 40% 60% 40%;
+
+    background: #f0b75b;
+
     transform: rotate(45deg);
-    box-shadow: 0 0 20px rgba(244, 185, 92, .8);
-    animation: flame 1s infinite alternate ease-in-out;
+
+    box-shadow:
+        0 0 22px rgba(240, 183, 91, 0.85);
+
+    animation:
+        flame 0.9s
+        ease-in-out
+        infinite alternate;
 }
 
 @keyframes flame {
+
     from {
-        transform: rotate(42deg) scale(.9);
+        transform:
+            rotate(42deg)
+            scale(0.9);
     }
 
     to {
-        transform: rotate(48deg) scale(1.08);
+        transform:
+            rotate(48deg)
+            scale(1.08);
     }
 }
 
-/* KNIFE */
+
+/* ================================
+   REAL KNIFE
+================================ */
 
 .knife-button {
     position: absolute;
-    right: calc(50% - 270px);
-    bottom: 25%;
-    background: transparent;
-    color: rgba(245, 234, 217, .6);
+
+    right: -30px;
+    top: 170px;
+
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    transition: .25s ease;
+
+    gap: 8px;
+
+    padding: 0;
+
+    background: transparent;
+
+    color: rgba(245, 234, 216, 0.45);
+
+    cursor: pointer;
+
+    z-index: 80;
+
+    transition:
+        transform 0.25s ease,
+        color 0.25s ease,
+        opacity 0.35s ease;
 }
 
 .knife-button:hover {
     color: var(--cream);
-    transform: translateY(-4px);
+
+    transform:
+        translateY(-5px);
 }
 
-.knife {
-    position: relative;
-    width: 130px;
-    height: 55px;
-    transform: rotate(-35deg);
+.real-knife {
+    width: 275px;
+    height: auto;
+
+    transform: rotate(-7deg);
+
+    filter:
+        drop-shadow(
+            0 15px 14px rgba(0, 0, 0, 0.65)
+        );
+
+    transition:
+        transform 0.25s ease;
 }
 
-.knife-blade {
-    position: absolute;
-    left: 0;
-    top: 10px;
-    width: 82px;
-    height: 25px;
-    background: linear-gradient(145deg, #eee, #777);
-    clip-path: polygon(0 0, 100% 25%, 100% 75%, 0 100%);
-    box-shadow: 0 0 10px rgba(255,255,255,.15);
+.knife-button:hover .real-knife {
+    transform:
+        rotate(-4deg)
+        scale(1.03);
 }
 
-.knife-handle {
-    position: absolute;
-    right: 0;
-    top: 11px;
-    width: 58px;
-    height: 23px;
-    border-radius: 4px 12px 12px 4px;
-    background: linear-gradient(90deg, #1d1a18, #4b4038);
-}
-
-/* INSTRUCTION */
-
-.instruction {
-    position: absolute;
-    bottom: 7%;
-    color: rgba(245, 234, 217, .35);
-    font-size: 10px;
-    letter-spacing: 2px;
-}
-
-.instruction span {
-    color: var(--gold);
-    margin: 0 8px;
-}
-
-/* PASSWORD */
-
-.password-screen,
-.success-screen {
-    position: absolute;
-    inset: 0;
-    display: none;
-    align-items: center;
-    justify-content: center;
-}
-
-.password-card {
-    width: min(90%, 470px);
-    text-align: center;
-    padding: 45px 35px;
-    background: rgba(20, 16, 14, .78);
-    border: 1px solid rgba(215, 176, 106, .2);
-    backdrop-filter: blur(20px);
-    box-shadow: 0 30px 100px rgba(0,0,0,.5);
-}
-
-.lock-symbol {
-    color: var(--gold);
-    font-size: 20px;
-    margin-bottom: 20px;
-}
-
-.small-title {
-    color: var(--gold);
-    letter-spacing: 4px;
+.knife-button span {
     font-size: 9px;
-}
 
-.password-card h2 {
-    margin-top: 15px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 40px;
-    font-weight: 500;
-}
-
-.password-description {
-    margin-top: 10px;
-    color: rgba(245,234,217,.5);
-    font-size: 12px;
-    line-height: 1.7;
-}
-
-.input-container {
-    margin-top: 30px;
-}
-
-.input-container input {
-    width: 100%;
-    height: 55px;
-    text-align: center;
-    background: rgba(255,255,255,.04);
-    border: 1px solid rgba(215,176,106,.25);
-    color: var(--cream);
-    outline: none;
-    font-size: 18px;
-    letter-spacing: 5px;
-    transition: .2s;
-}
-
-.input-container input:focus {
-    border-color: var(--gold);
-    box-shadow: 0 0 25px rgba(215,176,106,.08);
-}
-
-.cut-button,
-.wrong-screen button {
-    margin-top: 18px;
-    padding: 15px 28px;
-    background: var(--gold);
-    color: #18120d;
-    font-size: 11px;
-    letter-spacing: 1px;
-    transition: .2s;
-}
-
-.cut-button:hover,
-.wrong-screen button:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
-}
-
-.error-message {
-    display: none;
-    margin-top: 18px;
-    color: #c96d6d;
-    font-size: 11px;
-}
-
-/* SUCCESS */
-
-.success-screen {
-    overflow-y: auto;
-    padding: 60px 20px;
-}
-
-.success-content {
-    width: min(90%, 650px);
-    text-align: center;
-    animation: successIn .8s ease forwards;
-}
-
-@keyframes successIn {
-    from {
-        opacity: 0;
-        transform: translateY(25px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.success-content h2 {
-    margin-top: 15px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(45px, 7vw, 75px);
-    font-weight: 500;
-    line-height: .95;
-}
-
-.success-content h2 span {
-    display: block;
-    color: var(--gold);
-    font-style: italic;
-}
-
-.gold-line {
-    width: 60px;
-    height: 1px;
-    background: var(--gold);
-    margin: 25px auto;
-}
-
-.birthday-message {
-    color: rgba(245,234,217,.65);
-    line-height: 1.9;
-    font-size: 13px;
-}
-
-.signature {
-    margin-top: 30px;
-    color: rgba(245,234,217,.45);
-    font-size: 11px;
-    line-height: 2;
-}
-
-.signature strong {
-    display: block;
-    color: var(--gold);
-    font-family: "Cormorant Garamond", serif;
-    font-size: 25px;
-}
-
-.music-button {
-    margin-top: 30px;
-    padding: 12px 24px;
-    background: transparent;
-    border: 1px solid rgba(215,176,106,.35);
-    color: var(--gold);
-    font-size: 10px;
     letter-spacing: 2px;
 }
 
-/* WRONG */
 
-.wrong-screen {
+/* ================================
+   PASSWORD
+================================ */
+
+.password-screen {
     position: absolute;
+
     inset: 0;
+
     display: none;
+
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+
+    opacity: 0;
+
+    z-index: 100;
+}
+
+.password-box {
+    width: min(90%, 470px);
+
+    padding: 50px 40px;
+
     text-align: center;
-    background: rgba(8,7,7,.96);
-    z-index: 50;
+
+    background:
+        rgba(17, 13, 11, 0.84);
+
+    border:
+        1px solid rgba(214, 176, 106, 0.22);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.6);
 }
 
-.wrong-screen h2 {
-    margin-top: 20px;
-    font-family: "Cormorant Garamond", serif;
-    font-size: 60px;
-    color: #b84b51;
+.password-symbol {
+    margin-bottom: 20px;
+
+    color: var(--gold);
+
+    font-size: 18px;
 }
 
-.wrong-screen p {
-    margin-top: 10px;
-    color: rgba(245,234,217,.5);
+.eyebrow {
+    color: var(--gold);
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+}
+
+.password-box h2 {
+    margin-top: 15px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 43px;
+
+    font-weight: 500;
+}
+
+.password-box p {
+    margin-top: 12px;
+
+    color:
+        rgba(245, 234, 216, 0.5);
+
     font-size: 12px;
+
     line-height: 1.8;
 }
 
-.broken-knife {
+.date-input {
+    margin-top: 30px;
+}
+
+.date-input input {
+    width: 100%;
+    height: 55px;
+
+    outline: none;
+
+    border:
+        1px solid rgba(214, 176, 106, 0.25);
+
+    background:
+        rgba(255, 255, 255, 0.035);
+
+    color: var(--cream);
+
+    text-align: center;
+
+    font-size: 19px;
+
+    letter-spacing: 6px;
+
+    transition: 0.2s ease;
+}
+
+.date-input input:focus {
+    border-color: var(--gold);
+
+    box-shadow:
+        0 0 25px
+        rgba(214, 176, 106, 0.1);
+}
+
+.validate-button {
+    margin-top: 18px;
+
+    padding: 15px 32px;
+
+    border: none;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--gold-light),
+            var(--gold)
+        );
+
+    color: #17110b;
+
+    font-size: 10px;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.validate-button:hover {
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(214, 176, 106, 0.12);
+}
+
+.password-error {
+    display: none;
+
+    margin-top: 16px;
+
+    color: #c96870;
+
+    font-size: 10px;
+}
+
+
+/* ================================
+   CUT ANIMATION
+================================ */
+
+.cake.cutting .cake-left {
+    animation:
+        cutLeft
+        0.9s
+        cubic-bezier(.2, .8, .2, 1)
+        forwards;
+}
+
+.cake.cutting .cake-right {
+    animation:
+        cutRight
+        0.9s
+        cubic-bezier(.2, .8, .2, 1)
+        forwards;
+}
+
+.cake.cutting .cake-title {
+    animation:
+        titleOut
+        0.3s
+        ease
+        forwards;
+}
+
+@keyframes cutLeft {
+
+    0% {
+        transform:
+            translateX(0);
+    }
+
+    35% {
+        transform:
+            translateX(-5px);
+    }
+
+    100% {
+        transform:
+            translateX(-125px)
+            rotate(-3deg);
+    }
+}
+
+@keyframes cutRight {
+
+    0% {
+        transform:
+            translateX(0);
+    }
+
+    35% {
+        transform:
+            translateX(5px);
+    }
+
+    100% {
+        transform:
+            translateX(125px)
+            rotate(3deg);
+    }
+}
+
+@keyframes titleOut {
+
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* ================================
+   LETTER
+================================ */
+
+.letter {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 390px;
+    min-height: 300px;
+
+    transform:
+        translate(-50%, -35%)
+        scale(0.1);
+
+    opacity: 0;
+
+    z-index: 3;
+}
+
+.letter.open {
+    animation:
+        letterOpen
+        1.2s
+        cubic-bezier(.2, .8, .2, 1)
+        forwards;
+}
+
+@keyframes letterOpen {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translate(-50%, -35%)
+            scale(0.1)
+            rotateX(70deg);
+    }
+
+    45% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(0.85)
+            rotateX(15deg);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(1)
+            rotateX(0);
+    }
+}
+
+.letter-paper {
     position: relative;
-    width: 140px;
+
+    width: 100%;
+    min-height: 100%;
+
+    padding: 35px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #fffaf0,
+            #eee0c9
+        );
+
+    color: #392a1d;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0, 0, 0, 0.6);
+
+    transform-origin: top center;
+}
+
+.letter-paper::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    background:
+        repeating-linear-gradient(
+            0deg,
+            transparent,
+            transparent 27px,
+            rgba(100, 70, 40, 0.035) 28px
+        );
+}
+
+.letter-content {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+.letter-small {
+    color: #a07b46;
+
+    font-size: 8px;
+
+    letter-spacing: 4px;
+}
+
+.letter-content h2 {
+    margin-top: 10px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 37px;
+
+    font-weight: 600;
+
+    line-height: 0.95;
+}
+
+.letter-content h2 span {
+    display: block;
+
+    color: #9a343b;
+
+    font-style: italic;
+}
+
+.letter-line {
+    width: 50px;
+    height: 1px;
+
+    margin: 17px auto;
+
+    background: #b28b51;
+}
+
+.letter-content p {
+    margin-top: 10px;
+
+    color: #665344;
+
+    font-size: 10px;
+
+    line-height: 1.65;
+}
+
+.letter-signature {
+    margin-top: 18px;
+
+    color: #806238;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 15px;
+}
+
+.letter-signature strong {
+    display: block;
+
+    margin-top: 2px;
+
+    color: #9a343b;
+
+    font-size: 22px;
+}
+
+
+/* ================================
+   WRONG PASSWORD
+================================ */
+
+.wrong-screen {
+    position: absolute;
+
+    inset: 0;
+
+    display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        rgba(7, 6, 6, 0.98);
+
+    z-index: 200;
+}
+
+.broken-knife-icon {
+    position: relative;
+
+    width: 150px;
     height: 70px;
-    transform: rotate(-25deg);
-    animation: brokenShake .4s ease;
+
+    transform: rotate(-18deg);
+
+    animation:
+        brokenShake
+        0.4s
+        ease;
 }
 
 .broken-blade {
     position: absolute;
-    left: 0;
+
     top: 25px;
-    width: 75px;
+    left: 0;
+
+    width: 82px;
     height: 22px;
-    background: #777;
-    clip-path: polygon(0 0, 100% 0, 70% 50%, 100% 100%, 0 100%);
+
+    background:
+        linear-gradient(
+            180deg,
+            #ddd,
+            #666
+        );
+
+    clip-path:
+        polygon(
+            0 0,
+            100% 0,
+            73% 50%,
+            100% 100%,
+            0 100%
+        );
 }
 
 .broken-handle {
     position: absolute;
-    right: 0;
+
     top: 25px;
-    width: 65px;
+    right: 0;
+
+    width: 68px;
     height: 22px;
-    background: #302724;
-    border-radius: 5px 12px 12px 5px;
+
+    border-radius:
+        5px 13px 13px 5px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #191411,
+            #55443a
+        );
+}
+
+.wrong-eyebrow {
+    margin-top: 25px;
+
+    color: #b64b51;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+}
+
+.wrong-screen h2 {
+    margin-top: 12px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size: 58px;
+
+    font-weight: 500;
+}
+
+.wrong-screen p {
+    margin-top: 8px;
+
+    color:
+        rgba(245, 234, 216, 0.45);
+
+    font-size: 11px;
+}
+
+.wrong-screen button {
+    margin-top: 25px;
+
+    padding: 13px 28px;
+
+    border:
+        1px solid rgba(214, 176, 106, 0.3);
+
+    background: transparent;
+
+    color: var(--gold);
+
+    font-size: 10px;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.wrong-screen button:hover {
+    background: var(--gold);
+    color: #17110b;
 }
 
 @keyframes brokenShake {
-    0%, 100% {
-        transform: rotate(-25deg);
+
+    0% {
+        transform: rotate(-18deg);
     }
 
-    25% {
-        transform: rotate(-32deg) translateX(-7px);
+    20% {
+        transform:
+            rotate(-28deg)
+            translateX(-7px);
     }
 
-    75% {
-        transform: rotate(-18deg) translateX(7px);
+    40% {
+        transform:
+            rotate(-10deg)
+            translateX(7px);
+    }
+
+    60% {
+        transform:
+            rotate(-25deg)
+            translateX(-5px);
+    }
+
+    80% {
+        transform:
+            rotate(-12deg)
+            translateX(4px);
+    }
+
+    100% {
+        transform: rotate(-18deg);
     }
 }
 
-/* RESPONSIVE */
 
-@media (max-width: 700px) {
+/* ================================
+   RESPONSIVE
+================================ */
 
-    .names {
+@media (max-width: 800px) {
+
+    .intro-text {
+        top: 7%;
+    }
+
+    .intro-text h1 {
         font-size: 55px;
     }
 
-    .subtitle {
-        font-size: 10px;
+    .cake-area {
+        width: 100%;
+        height: 450px;
+        margin-top: 90px;
     }
 
-    .cake-wrapper {
-        transform: scale(.75);
-        margin-top: 10px;
+    .cake {
+        transform:
+            translate(-50%, -42%)
+            scale(0.75);
     }
 
     .knife-button {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        margin-top: -10px;
+        right: -20px;
+        top: 175px;
     }
 
-    .instruction {
-        bottom: 3%;
-        font-size: 8px;
+    .real-knife {
+        width: 210px;
     }
 
-    .password-card {
-        padding: 35px 25px;
+    .letter {
+        width: 340px;
+    }
+
+    .letter-paper {
+        padding: 28px;
+    }
+}
+
+
+@media (max-width: 500px) {
+
+    .intro-text h1 {
+        font-size: 48px;
+    }
+
+    .intro-text p {
+        font-size: 9px;
+    }
+
+    .cake-area {
+        height: 430px;
+    }
+
+    .cake {
+        transform:
+            translate(-50%, -40%)
+            scale(0.63);
+    }
+
+    .knife-button {
+        right: -8px;
+        top: 190px;
+    }
+
+    .real-knife {
+        width: 175px;
+    }
+
+    .knife-button span {
+        font-size: 7px;
+    }
+
+    .letter {
+        width: 320px;
+    }
+
+    .letter-content h2 {
+        font-size: 31px;
+    }
+
+    .letter-content p {
+        font-size: 9px;
+    }
+
+    .password-box {
+        padding: 38px 25px;
+    }
+
+    .password-box h2 {
+        font-size: 37px;
     }
 }
