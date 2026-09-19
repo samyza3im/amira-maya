@@ -1,169 +1,104 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#080706">
-  <title>Maya & Amira — Joyeux anniversaire</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#090705">
+<title>Maya & Amira — Joyeux anniversaire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="bg" aria-hidden="true">
-    <div class="glow glow-a"></div>
-    <div class="glow glow-b"></div>
-    <div class="noise"></div>
+<div class="ambient"></div>
+
+<section id="home" class="screen active">
+  <div class="top">
+    <span>UNE PETITE SURPRISE</span>
+    <h1>Maya <i>&amp;</i> Amira</h1>
+    <p>Un moment spécial se cache ici...</p>
   </div>
 
-  <main id="app">
-    <section id="cakeScene" class="scene scene-active">
-      <div class="intro">
-        <div class="overline">UNE PETITE SURPRISE</div>
-        <h1>Maya <em>&amp;</em> Amira</h1>
-        <p>Un petit moment rien que pour toi.</p>
-      </div>
+  <div class="cake-stage">
+    <div class="real-cake">
+      <img src="cake-realistic.png" alt="Gâteau d'anniversaire Maya et Amira">
+      <div class="cake-mask"></div>
+      <div class="cake-title">Maya <b>&amp;</b> Amira</div>
+      <div class="cake-infinity">∞</div>
+      <button id="knife" class="knife" aria-label="Prendre le couteau">
+        <svg viewBox="0 0 360 130">
+          <defs>
+            <linearGradient id="b" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#fff"/><stop offset=".3" stop-color="#9ca2a5"/>
+              <stop offset=".52" stop-color="#fff"/><stop offset="1" stop-color="#686d70"/>
+            </linearGradient>
+            <linearGradient id="h" x1="0" x2="1">
+              <stop stop-color="#120e0b"/><stop offset=".5" stop-color="#5b4434"/><stop offset="1" stop-color="#17110d"/>
+            </linearGradient>
+            <linearGradient id="m" x1="0" y1="0" x2="1" y2="1">
+              <stop stop-color="#f7df99"/><stop offset=".5" stop-color="#9d7029"/><stop offset="1" stop-color="#efc86e"/>
+            </linearGradient>
+          </defs>
+          <path d="M12 34C84 25 153 27 225 34v35C152 79 82 88 12 75 5 63 5 46 12 34Z" fill="url(#b)"/>
+          <path d="M22 40C80 33 138 34 191 38v6C132 40 77 43 24 51Z" fill="rgba(255,255,255,.75)"/>
+          <path d="M13 75C84 88 152 79 225 69" fill="none" stroke="#555" stroke-width="2"/>
+          <rect x="218" y="31" width="23" height="41" rx="5" fill="url(#m)"/>
+          <rect x="235" y="33" width="104" height="37" rx="17" fill="url(#h)"/>
+          <rect x="232" y="31" width="12" height="41" rx="4" fill="url(#m)"/>
+          <path d="M260 37v29M274 36v31M288 36v31" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
+        </svg>
+        <small>APPUYER SUR LE COUTEAU</small>
+      </button>
+    </div>
+  </div>
+  <div class="bottom-hint">Le couteau ouvre la surprise</div>
+</section>
 
-      <div class="stage">
-        <div class="ground-shadow"></div>
+<section id="password" class="screen centered">
+  <div class="card">
+    <span>LA SURPRISE EST PRÊTE</span>
+    <h2>Une dernière chose...</h2>
+    <p>Entre la date d'anniversaire d'Amira<br>au format <strong>JJMM</strong>.</p>
+    <input id="date" inputmode="numeric" maxlength="4" placeholder="JJMM" autocomplete="off">
+    <button id="go">CONTINUER</button>
+    <div id="wrong">Ce n'est pas la bonne date.</div>
+  </div>
+</section>
 
-        <div id="letter" class="letter" aria-hidden="true">
-          <div class="letter-paper">
-            <div class="letter-inner">
-              <div class="letter-label">POUR AMIRA</div>
-              <h2>Joyeux anniversaire</h2>
-              <div class="letter-name">Amira</div>
-              <div class="letter-rule"></div>
-              <p>
-                Aujourd'hui est une journée spéciale, alors prends le temps
-                de profiter de chaque petit bonheur qui vient à toi.
-              </p>
-              <p>
-                Je te souhaite une nouvelle année remplie de beaux souvenirs,
-                de sourires, de réussite et de moments que tu n'oublieras pas.
-              </p>
-              <p>
-                Que tout ce que tu souhaites trouve doucement son chemin
-                jusqu'à toi.
-              </p>
-              <div class="signature">
-                Avec beaucoup d'affection
-                <strong>Maya &amp; Amira</strong>
-              </div>
-            </div>
-          </div>
-        </div>
+<section id="errorScreen" class="screen centered">
+  <div class="error-wrap">
+    <div id="brokenKnife">
+      <div class="broken-blade"></div><div class="broken-handle"></div>
+    </div>
+    <span>OUPS</span>
+    <h2>Ce n'était pas ça...</h2>
+    <p>Le gâteau n'a pas apprécié cette tentative.</p>
+    <button id="retry">RÉESSAYER</button>
+  </div>
+</section>
 
-        <!-- Gâteau vu du dessus -->
-        <div id="cake" class="cake" aria-label="Gâteau Maya et Amira">
-          <div class="cake-body-ring"></div>
-          <div class="cake-top">
-            <div class="icing-rim"></div>
+<section id="reveal" class="screen">
+  <div class="reveal-wrap">
+    <div class="letter">
+      <div class="letter-top">∞</div>
+      <h2>Joyeux anniversaire</h2>
+      <h3>Amira</h3>
+      <div class="rule"></div>
+      <p>Aujourd'hui est une journée un peu plus spéciale que les autres, parce qu'elle célèbre une personne qui mérite beaucoup de bonheur.</p>
+      <p>Je te souhaite une année remplie de beaux souvenirs, de sourires, de réussite et de moments que tu garderas longtemps.</p>
+      <p>Profite de chaque instant, amuse-toi et surtout, reste toujours la personne que tu es.</p>
+      <div class="sign">Avec beaucoup d'amour<br><strong>Maya &amp; Amira</strong></div>
+    </div>
+    <div class="slice-piece"><span></span><i></i><b></b></div>
+    <div class="music-line">
+      <span>LA PLUS BELLE DES ANNÉES COMMENCE MAINTENANT...</span>
+      <button id="sound">SON</button>
+    </div>
+  </div>
+</section>
 
-            <div class="cake-decoration deco-1"></div>
-            <div class="cake-decoration deco-2"></div>
-            <div class="cake-decoration deco-3"></div>
-            <div class="cake-decoration deco-4"></div>
-            <div class="cake-decoration deco-5"></div>
-            <div class="cake-decoration deco-6"></div>
-            <div class="cake-decoration deco-7"></div>
-            <div class="cake-decoration deco-8"></div>
-
-            <div class="cake-writing">
-              <span>Maya</span>
-              <b>&amp;</b>
-              <span>Amira</span>
-            </div>
-
-            <div class="infinity" aria-label="infini">∞</div>
-
-            <div class="candles">
-              <div class="candle"><i></i></div>
-              <div class="candle"><i></i></div>
-              <div class="candle"><i></i></div>
-            </div>
-          </div>
-
-          <!-- Une seule part : elle se détache après la coupe -->
-          <div id="slice" class="cake-slice">
-            <div class="slice-face">
-              <span class="slice-layer layer-1"></span>
-              <span class="slice-layer layer-2"></span>
-              <span class="slice-layer layer-3"></span>
-              <span class="slice-cream cream-1"></span>
-              <span class="slice-cream cream-2"></span>
-            </div>
-          </div>
-
-          <div class="cut-line" aria-hidden="true"></div>
-        </div>
-
-        <button id="knife" class="knife" type="button" aria-label="Prendre le couteau">
-          <svg viewBox="0 0 360 130" role="img" aria-hidden="true">
-            <defs>
-              <linearGradient id="blade" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#ffffff"/>
-                <stop offset=".22" stop-color="#b9bec1"/>
-                <stop offset=".46" stop-color="#ffffff"/>
-                <stop offset=".72" stop-color="#73797d"/>
-                <stop offset="1" stop-color="#e9e9e9"/>
-              </linearGradient>
-              <linearGradient id="handle" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#120f0d"/>
-                <stop offset=".48" stop-color="#4c3b31"/>
-                <stop offset="1" stop-color="#15110e"/>
-              </linearGradient>
-              <linearGradient id="metal" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#f9e6a9"/>
-                <stop offset=".5" stop-color="#a97825"/>
-                <stop offset="1" stop-color="#f1cc70"/>
-              </linearGradient>
-            </defs>
-            <path class="svg-blade"
-              d="M15 34 C86 25 154 26 224 34 L224 69 C151 79 84 88 15 75 C7 63 7 46 15 34Z"
-              fill="url(#blade)"/>
-            <path d="M25 40 C80 33 139 33 191 38 L191 44 C132 40 79 43 27 51Z"
-              fill="rgba(255,255,255,.7)"/>
-            <path d="M15 75 C84 88 151 79 224 69" fill="none" stroke="#555b60" stroke-width="2"/>
-            <rect x="218" y="31" width="22" height="41" rx="5" fill="url(#metal)"/>
-            <rect x="235" y="33" width="103" height="37" rx="17" fill="url(#handle)"/>
-            <rect x="232" y="31" width="12" height="41" rx="4" fill="url(#metal)"/>
-            <path d="M259 37V66 M272 36V67 M285 36V67" stroke="rgba(255,255,255,.12)" stroke-width="2"/>
-            <ellipse cx="334" cy="51.5" rx="12" ry="18" fill="#211914"/>
-          </svg>
-          <span>TOUCHE LE COUTEAU</span>
-        </button>
-      </div>
-
-      <div id="hint" class="hint">Le couteau ouvre la surprise</div>
-    </section>
-
-    <section id="passwordScene" class="scene password-scene" aria-hidden="true">
-      <div class="password-card">
-        <div class="tiny">LA SURPRISE EST PRÊTE</div>
-        <h2>Une dernière chose...</h2>
-        <p>Entre la date d'anniversaire d'Amira au format <b>JJMM</b>.</p>
-        <input id="dateInput" type="text" inputmode="numeric" maxlength="4"
-               placeholder="JJMM" autocomplete="off" aria-label="Date d'anniversaire">
-        <button id="validate" type="button">DÉCOUVRIR</button>
-        <div id="error" class="error">Ce n'est pas la bonne date.</div>
-      </div>
-    </section>
-
-    <section id="brokenScene" class="scene broken-scene" aria-hidden="true">
-      <div class="broken-knife">
-        <div class="broken-blade"></div>
-        <div class="broken-handle"></div>
-      </div>
-      <div class="tiny danger">OUPS</div>
-      <h2>Le gâteau n'a pas apprécié...</h2>
-      <p>Essaie encore une fois.</p>
-      <button id="retry" type="button">RÉESSAYER</button>
-    </section>
-  </main>
-
-  <audio id="music" src="music.mp3" preload="auto"></audio>
-  <script src="script.js"></script>
+<audio id="music" src="music.mp3" preload="auto"></audio>
+<script src="script.js"></script>
 </body>
 </html>
