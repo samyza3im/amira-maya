@@ -1,32 +1,144 @@
-const PASSWORD="2109";
-const home=document.getElementById("home"), password=document.getElementById("password"), errorScreen=document.getElementById("errorScreen"), reveal=document.getElementById("reveal");
-const knife=document.getElementById("knife"), date=document.getElementById("date"), go=document.getElementById("go"), wrong=document.getElementById("wrong"), retry=document.getElementById("retry"), music=document.getElementById("music"), sound=document.getElementById("sound");
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
-function show(s){[home,password,errorScreen,reveal].forEach(x=>x.classList.toggle("active",x===s));}
-async function takeKnife(){
- knife.disabled=true;
- knife.style.transition="transform .75s cubic-bezier(.15,.8,.2,1)";
- knife.style.transform="translate(-135px,-105px) rotate(-48deg) scale(1.02)";
- await wait(760); knife.style.opacity="0"; await wait(250);
- show(password); date.focus();
+const PASSWORD = "2109";
+
+const intro = document.getElementById("intro");
+const passwordScreen = document.getElementById("passwordScreen");
+const wrongScreen = document.getElementById("wrongScreen");
+const finalScreen = document.getElementById("finalScreen");
+
+const cake = document.getElementById("cake");
+const knife = document.getElementById("knife");
+const input = document.getElementById("passwordInput");
+const validate = document.getElementById("validate");
+const passwordError = document.getElementById("passwordError");
+const retry = document.getElementById("retry");
+const music = document.getElementById("music");
+const musicButton = document.getElementById("musicButton");
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+function show(screen) {
+  [intro, passwordScreen, wrongScreen, finalScreen].forEach(s => {
+    s.classList.toggle("active", s === screen);
+  });
 }
-async function success(){
- show(home);
- const cake=document.querySelector(".real-cake");
- const r=cake.getBoundingClientRect(), k=knife.getBoundingClientRect();
- const x=r.left+r.width*.63-(k.left+k.width/2), y=r.top+r.height*.46-(k.top+k.height/2);
- knife.style.opacity="1"; knife.style.transition="none"; knife.style.transform=`translate(${x}px,${y-125}px) rotate(-48deg)`;
- await wait(400);
- knife.style.transition="transform .55s cubic-bezier(.18,.8,.2,1)";
- knife.style.transform=`translate(${x-5}px,${y+8}px) rotate(-48deg)`;
- await wait(500);
- show(reveal);
- try{music.volume=.8;await music.play()}catch(e){}
+
+let busy = false;
+
+/* 1. Le couteau va réellement vers le gâteau */
+async function pickUpKnife() {
+  if (busy) return;
+  busy = true;
+  knife.disabled = true;
+
+  knife.style.transition = "transform .78s cubic-bezier(.16,.82,.2,1), opacity .2s ease";
+  knife.style.transform = "translate(-145px,-125px) rotate(-47deg)";
+
+  await sleep(800);
+
+  knife.style.opacity = "0";
+  await sleep(220);
+
+  show(passwordScreen);
+  input.value = "";
+  passwordError.style.display = "none";
+  setTimeout(() => input.focus(), 100);
 }
-function fail(){wrong.style.display="block";show(errorScreen)}
-go.onclick=()=>date.value.replace(/\D/g,"")===PASSWORD?success():fail();
-date.oninput=()=>{date.value=date.value.replace(/\D/g,"").slice(0,4);wrong.style.display="none"};
-date.onkeydown=e=>{if(e.key==="Enter")go.click()};
-retry.onclick=()=>{knife.disabled=false;knife.style="";show(home);date.value="";wrong.style.display="none"};
-sound.onclick=()=>{if(music.paused){music.play();sound.textContent="PAUSE"}else{music.pause();sound.textContent="SON"}};
-knife.onclick=takeKnife;
+
+/* 2. Bonne date = retour au gâteau + vraie descente du couteau */
+async function cutCake() {
+  show(intro);
+
+  const cakeBox = cake.getBoundingClientRect();
+  const knifeBox = knife.getBoundingClientRect();
+
+  const targetX =
+    cakeBox.left + cakeBox.width * 0.68 -
+    (knifeBox.left + knifeBox.width * 0.5);
+
+  const targetY =
+    cakeBox.top + cakeBox.height * 0.43 -
+    (knifeBox.top + knifeBox.height * 0.5);
+
+  knife.style.opacity = "1";
+  knife.style.transition = "none";
+  knife.style.transform =
+    `translate(${targetX}px,${targetY - 135}px) rotate(-43deg)`;
+
+  await sleep(350);
+
+  knife.style.transition = "transform .58s cubic-bezier(.15,.84,.2,1)";
+  knife.style.transform =
+    `translate(${targetX - 7}px,${targetY + 12}px) rotate(-43deg)`;
+
+  await sleep(570);
+
+  /* Une seule part sort du gâteau */
+  cake.classList.add("cut");
+
+  await sleep(1000);
+
+  knife.style.transition = "transform .4s ease, opacity .25s ease";
+  knife.style.transform =
+    `translate(${targetX + 105}px,${targetY + 125}px) rotate(-43deg)`;
+  knife.style.opacity = "0";
+
+  await sleep(300);
+
+  show(finalScreen);
+
+  try {
+    music.volume = 0.8;
+    await music.play();
+    musicButton.textContent = "PAUSE";
+  } catch (e) {
+    musicButton.textContent = "MUSIQUE";
+  }
+
+  busy = false;
+}
+
+function checkPassword() {
+  const value = input.value.replace(/\D/g, "");
+
+  if (value === PASSWORD) {
+    cutCake();
+  } else {
+    show(wrongScreen);
+  }
+}
+
+knife.addEventListener("click", pickUpKnife);
+
+validate.addEventListener("click", checkPassword);
+
+input.addEventListener("input", () => {
+  input.value = input.value.replace(/\D/g, "").slice(0, 4);
+  passwordError.style.display = "none";
+});
+
+input.addEventListener("keydown", event => {
+  if (event.key === "Enter") checkPassword();
+});
+
+retry.addEventListener("click", () => {
+  cake.classList.remove("cut");
+  knife.disabled = false;
+  knife.style.transition = "";
+  knife.style.transform = "";
+  knife.style.opacity = "1";
+  input.value = "";
+  busy = false;
+  show(intro);
+});
+
+musicButton.addEventListener("click", async () => {
+  if (music.paused) {
+    try {
+      await music.play();
+      musicButton.textContent = "PAUSE";
+    } catch (e) {}
+  } else {
+    music.pause();
+    musicButton.textContent = "MUSIQUE";
+  }
+});
